@@ -1,93 +1,21 @@
 {
-  "name": "ModernReader Royale",
+  "name": "ModernReader",
   "short_name": "ModernReader",
-  "description": "專為頂級閱讀體驗打造的單頁網站樣板",
-  "start_url": "/",
+  "description": "基於 Vue 3 + TypeScript + Vite 打造的現代化 Markdown 閱讀器",
+  "start_url": "/ModernReader/",
   "display": "standalone",
-  "background_color": "#05010f",
+  "background_color": "#ffffff",
   "theme_color": "#845ef7",
   "orientation": "portrait-primary",
-  "scope": "/",
+  "scope": "/ModernReader/",
   "lang": "zh-TW",
-  "categories": ["books", "education", "entertainment"],
+  "categories": ["education", "productivity"],
   "icons": [
     {
-      "src": "assets/icons/icon-72.png",
-      "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "assets/icons/icon-96.png",
-      "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "assets/icons/icon-128.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "assets/icons/icon-144.png",
-      "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "assets/icons/icon-152.png",
-      "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "assets/icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "assets/icons/icon-384.png",
-      "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "assets/icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "assets/images/screenshot-wide.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide"
-    },
-    {
-      "src": "assets/images/screenshot-narrow.png",
-      "sizes": "750x1334",
-      "type": "image/png",
-      "form_factor": "narrow"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "閱讀殿堂",
-      "short_name": "殿堂",
-      "description": "進入沉浸式閱讀體驗",
-      "url": "/#immersion",
-      "icons": [{ "src": "assets/icons/bookmark.svg", "sizes": "96x96" }]
-    },
-    {
-      "name": "私藏書籍",
-      "short_name": "私藏",
-      "description": "瀏覽限量珍藏",
-      "url": "/#curation",
-      "icons": [{ "src": "assets/icons/bookmark.svg", "sizes": "96x96" }]
+      "src": "vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
     }
   ],
   "related_applications": [],

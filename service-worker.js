@@ -3,41 +3,14 @@
  * PWA 離線支援
  */
 
-const CACHE_NAME = 'modernreader-v1.0.0';
+const CACHE_NAME = 'modernreader-v2.0.0';
 const RUNTIME_CACHE = 'modernreader-runtime';
 
-// 需要預緩存的資源
+// 需要預緩存的資源（App Shell）
 const PRECACHE_URLS = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/app.js',
-  '/manifest.json',
-  // Config
-  '/config/settings.js',
-  // Utils
-  '/utils/storage.js',
-  '/utils/analytics.js',
-  '/utils/i18n.js',
-  '/utils/keyboard.js',
-  '/utils/share.js',
-  // Components
-  '/components/toast.js',
-  '/components/modal.js',
-  '/components/loader.js',
-  // Services
-  '/services/api.js',
-  // Data
-  '/data/books.json',
-  // Icons
-  '/assets/icons/bookmark.svg',
-  '/assets/icons/settings.svg',
-  '/assets/icons/share.svg',
-  '/assets/icons/sun.svg',
-  '/assets/icons/moon.svg',
-  '/assets/icons/menu.svg',
-  '/assets/icons/close.svg',
-  '/assets/icons/search.svg'
+  '/ModernReader/',
+  '/ModernReader/index.html',
+  '/ModernReader/manifest.json'
 ];
 
 // 安裝事件 - 預緩存資源
@@ -194,11 +167,9 @@ self.addEventListener('push', (event) => {
   const data = event.data.json();
   const options = {
     body: data.body || '您有新的閱讀推薦',
-    icon: '/assets/icons/icon-192.png',
-    badge: '/assets/icons/icon-72.png',
     vibrate: [100, 50, 100],
     data: {
-      url: data.url || '/'
+      url: data.url || '/ModernReader/'
     },
     actions: [
       { action: 'open', title: '開啟' },

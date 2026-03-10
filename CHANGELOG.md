@@ -1,6 +1,30 @@
 # 更新日誌 Changelog
 
-本文檔記錄 ModernReader Royale 的所有重要更新。
+本文檔記錄 ModernReader 的所有重要更新。
+
+## [2.0.0] - 2026-03-10
+
+### 重構 Refactor
+- 🗂️ **Repository 整理**：移除所有與 Vue 3 應用無關的舊版 Vanilla JavaScript 遺留程式碼
+- 🗑️ 刪除 `components/`（舊版 JS 元件：carousel、dropdown、loader、modal、toast、tooltip）
+- 🗑️ 刪除 `hooks/`（舊版事件鉤子系統）
+- 🗑️ 刪除 `plugins/`（舊版插件系統）
+- 🗑️ 刪除 `services/`（舊版 API/Auth/Sync 服務）
+- 🗑️ 刪除 `utils/`（舊版工具函數：analytics、animation、audio、format、i18n、keyboard、share、storage、validation）
+- 🗑️ 刪除 `config/`（舊版設定檔）
+- 🗑️ 刪除 `styles/` 目錄與根目錄 `styles.css`（舊版 CSS 結構）
+- 🗑️ 刪除 `app.js`（舊版主程式，28KB）
+- 🗑️ 刪除 `assets/`（舊版資源目錄，圖示與圖片未被 Vue 應用使用）
+- 🗑️ 刪除 `data/`（舊版 JSON 資料，未被 Vue 應用使用）
+- 🗑️ 刪除 `tests/`（舊版測試，測試已刪除的 Vanilla JS 模組）
+
+### 更新 Changed
+- 🔧 **service-worker.js**：更新預緩存路徑為 Vite 構建輸出路徑，移除舊版資源參照
+- 📱 **manifest.json**：更新為 Vue 3 應用的正確設定，修正圖示路徑
+- 🌐 **index.html**：修正語言設定（`lang="zh-TW"`）、更新標題與加入 PWA manifest 連結
+- 📚 **docs/API.md**：重寫為 Vue 3 元件與組合式函數的完整文檔
+
+---
 
 ## [1.2.0] - 2024-12-21
 
