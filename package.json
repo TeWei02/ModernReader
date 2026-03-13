@@ -1,25 +1,35 @@
 {
   "name": "modernreader",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@types/markdown-it": "^14.1.2",
+    "clsx": "^2.1.1",
     "highlight.js": "^11.11.1",
     "markdown-it": "^14.1.1",
-    "vue": "^3.5.25"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.0",
+    "uuid": "^11.0.4",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
+    "@types/markdown-it": "^14.1.2",
     "@types/node": "^24.10.1",
-    "@vitejs/plugin-vue": "^6.0.2",
-    "@vue/tsconfig": "^0.8.1",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@types/uuid": "^10.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17",
     "typescript": "~5.9.3",
-    "vite": "^7.3.1",
-    "vue-tsc": "^3.1.5"
+    "vite": "^7.3.1"
   }
 }
