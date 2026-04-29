@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/Input'
 import { useAnnotationStore } from '@/store/annotationStore'
 import { useReaderStore } from '@/store/readerStore'
 import { useUIStore } from '@/store/uiStore'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 interface BookmarkListProps {
     bookId: string
@@ -11,7 +11,11 @@ interface BookmarkListProps {
 }
 
 export function BookmarkList({ bookId, onScrollTo }: BookmarkListProps) {
-    const bookmarks = useAnnotationStore((s) => s.bookmarksForBook(bookId))
+    const allBookmarks = useAnnotationStore((s) => s.bookmarks)
+    const bookmarks = useMemo(
+        () => allBookmarks.filter((b) => b.bookId === bookId),
+        [allBookmarks, bookId]
+    )
     const addBookmark = useAnnotationStore((s) => s.addBookmark)
     const removeBookmark = useAnnotationStore((s) => s.removeBookmark)
     const openConfirm = useUIStore((s) => s.openConfirm)

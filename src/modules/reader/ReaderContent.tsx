@@ -6,7 +6,9 @@ import type MarkdownIt from 'markdown-it'
 import {
     forwardRef,
     useCallback,
-    useEffect, useRef,
+    useEffect,
+    useMemo,
+    useRef,
     useState,
     type RefObject
 } from 'react'
@@ -127,7 +129,11 @@ export const ReaderContent = forwardRef<HTMLDivElement, ReaderContentProps>(
         const [selection, setSelection] = useState<SelectionState | null>(null)
         const settings = useReaderStore((s) => s.settings)
         const setActiveHeading = useReaderStore((s) => s.setActiveHeading)
-        const highlights = useAnnotationStore((s) => s.highlightsForBook(book.id))
+        const allHighlights = useAnnotationStore((s) => s.highlights)
+        const highlights = useMemo(
+            () => allHighlights.filter((h) => h.bookId === book.id),
+            [allHighlights, book.id]
+        )
         const searchQuery = useReaderStore((s) => s.searchQuery)
 
         // Render markdown → HTML
