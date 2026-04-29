@@ -3,7 +3,7 @@ import { useReaderStore } from '@/store/readerStore'
 import { useUIStore } from '@/store/uiStore'
 import type { Highlight, Note } from '@/types/annotation'
 import { clsx } from 'clsx'
-import { useState, type RefObject } from 'react'
+import { useMemo, useState, type RefObject } from 'react'
 import { BookmarkList } from './BookmarkList'
 import { NoteEditor } from './NoteEditor'
 
@@ -24,8 +24,12 @@ const COLOR_STYLES: Record<string, string> = {
 export function AnnotationSidebar({ bookId, contentRef }: AnnotationSidebarProps) {
     const [tab, setTab] = useState<Tab>('highlights')
     const toggleAnnotationSidebar = useReaderStore((s) => s.toggleAnnotationSidebar)
-    const highlights = useAnnotationStore((s) => s.highlightsForBook(bookId))
-    const notes = useAnnotationStore((s) => s.notesForBook(bookId))
+    const allHighlights = useAnnotationStore((s) => s.highlights)
+    const allNotes = useAnnotationStore((s) => s.notes)
+    const allBookmarks = useAnnotationStore((s) => s.bookmarks)
+    const highlights = useMemo(() => allHighlights.filter((h) => h.bookId === bookId), [allHighlights, bookId])
+    const notes = useMemo(() => allNotes.filter((n) => n.bookId === bookId), [allNotes, bookId])
+    const bookmarks = useMemo(() => allBookmarks.filter((b) => b.bookId === bookId), [allBookmarks, bookId])
     const removeHighlight = useAnnotationStore((s) => s.removeHighlight)
     const removeNote = useAnnotationStore((s) => s.removeNote)
     const openConfirm = useUIStore((s) => s.openConfirm)
@@ -41,7 +45,7 @@ export function AnnotationSidebar({ bookId, contentRef }: AnnotationSidebarProps
     const tabs: { key: Tab; label: string; count: number }[] = [
         { key: 'highlights', label: 'Highlights', count: highlights.length },
         { key: 'notes', label: 'Notes', count: notes.length },
-        { key: 'bookmarks', label: 'Bookmarks', count: useAnnotationStore.getState().bookmarksForBook(bookId).length },
+        { key: 'bookmarks', label: 'Bookmarks', count: bookmarks.length },
     ]
 
     return (
