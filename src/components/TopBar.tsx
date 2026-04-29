@@ -7,6 +7,7 @@ const routeTitles: Record<string, string> = {
     '/': 'Library',
     '/notebook': 'Notebook',
     '/flashcards': 'Flashcards',
+    '/agents': 'Agents',
     '/settings': 'Settings',
 }
 
@@ -16,11 +17,27 @@ export function TopBar() {
     const searchQuery = useLibraryStore((s) => s.searchQuery)
     const setSearchQuery = useLibraryStore((s) => s.setSearchQuery)
     const openNewCollection = useUIStore((s) => s.openNewCollectionModal)
+    const accessibilityMode = useUIStore((s) => s.accessibilityMode)
+    const cycleAccessibilityMode = useUIStore((s) => s.cycleAccessibilityMode)
     const isLibrary = location.pathname === '/'
+
+    const modeLabel = accessibilityMode === 'standard'
+        ? 'Standard'
+        : accessibilityMode === 'kids'
+            ? 'Kids'
+            : 'Senior'
 
     return (
         <header className="sticky top-0 z-20 h-14 flex items-center gap-3 px-4 border-b border-[var(--border)] bg-[var(--toolbar-bg)] backdrop-blur-sm">
             <h1 className="text-lg font-semibold text-[var(--text-heading)] shrink-0">{title}</h1>
+
+            <button
+                onClick={cycleAccessibilityMode}
+                className="rounded-lg border border-[var(--border)] px-3 py-1.5 text-xs text-[var(--text-secondary)] hover:bg-[var(--hover-bg)] transition-colors"
+                title="Switch accessibility mode"
+            >
+                Easy Mode: {modeLabel}
+            </button>
 
             {isLibrary && (
                 <>
