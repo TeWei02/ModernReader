@@ -6,6 +6,8 @@ import mkcert from 'vite-plugin-mkcert'
 export default defineConfig({
   plugins: [react(), mkcert()],
   base: '/ModernReader/',
+  root: 'client',
+  publicDir: 'public',
   server: {
     https: true,
     proxy: {
@@ -18,7 +20,11 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': path.resolve(__dirname, './client'),
     },
+  },
+  build: {
+    outDir: '../dist',
+    emptyOutDir: true,
   },
 })
