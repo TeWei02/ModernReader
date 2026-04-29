@@ -1,6 +1,9 @@
 // 在 app.js 最上方加入 Google Sheet API URL
 const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbxn7bJVcz8pukPxtRMuHhYscGwrXdnQ06G3unFT1qMf0R6vbGscGv4sa2iWZoRAEZ9Q.../exec';
+ copilot/add-new-features
 const SHARE_URL = 'https://stust-kotewei.github.io/ModernReader/';
+=======
+ main
 
 const themeButtons = document.querySelectorAll('[data-control="theme"] .chip');
 const livePreview = document.getElementById('livePreview');
@@ -707,12 +710,18 @@ const originalInit = initAllEnhancements;
 initAllEnhancements = function() {
     originalInit();
     initButtonHandlers();
+copilot/add-new-features
+=======
+    initThemeToggle();
+    initPreferencePersistence();
+ main
     console.log('💬 LLM Chat System Ready');
     console.log('🎯 Modal System Initialized');
 };
 
 console.log('🚀 Advanced Features Loaded!');
 
+ copilot/add-new-features
 // ===== NEW ENHANCED FEATURES =====
 
 // Sample book database for search
@@ -1055,4 +1064,196 @@ if (document.readyState === 'loading') {
 } else {
     initNewFeatures();
 }
+=======
+// ===== THEME TOGGLE & PERSISTENCE =====
+
+/**
+ * 初始化主題切換功能
+ */
+function initThemeToggle() {
+    const toggle = document.getElementById('themeToggle');
+    if (!toggle) return;
+    
+    // 檢查已保存的主題偏好
+    const savedTheme = UserPreferences ? UserPreferences.get().darkMode : null;
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // 如果用戶之前選擇了淺色模式，則應用它
+    if (savedTheme === false) {
+        document.body.classList.add('light-mode');
+        toggle.querySelector('.theme-icon').textContent = '☀️';
+    }
+    
+    toggle.addEventListener('click', () => {
+        const isLightMode = document.body.classList.toggle('light-mode');
+        const icon = toggle.querySelector('.theme-icon');
+        
+        // 更新圖標
+        icon.textContent = isLightMode ? '☀️' : '🌙';
+        
+        // 添加動畫效果
+        icon.style.transform = 'rotate(360deg)';
+        setTimeout(() => {
+            icon.style.transform = 'rotate(0deg)';
+        }, 300);
+        
+        // 保存偏好設置
+        if (typeof UserPreferences !== 'undefined') {
+            UserPreferences.save({ darkMode: !isLightMode });
+        }
+        
+        // 記錄分析事件
+        if (typeof Analytics !== 'undefined') {
+            Analytics.featureUsed('theme_toggle');
+            Analytics.track('theme_change', { mode: isLightMode ? 'light' : 'dark' });
+        }
+        
+        // 顯示 Toast 通知
+        if (typeof Toast !== 'undefined') {
+            Toast.info(isLightMode ? '已切換至淺色模式' : '已切換至深色模式', { duration: 2000 });
+        }
+    });
+}
+
+/**
+ * 初始化用戶偏好設置持久化
+ */
+function initPreferencePersistence() {
+    if (typeof UserPreferences === 'undefined') return;
+    
+    const prefs = UserPreferences.get();
+    
+    // 應用已保存的主題設置
+    if (prefs.theme && livePreview) {
+        updateTheme(prefs.theme);
+        const activeChip = document.querySelector(`[data-value="${prefs.theme}"]`);
+        if (activeChip) {
+            document.querySelectorAll('[data-control="theme"] .chip').forEach(c => c.classList.remove('active'));
+            activeChip.classList.add('active');
+        }
+    }
+    
+    // 應用已保存的字體大小
+    if (prefs.fontSize && fontSizeControl) {
+        fontSizeControl.value = prefs.fontSize;
+    }
+    
+    // 應用已保存的字距
+    if (prefs.letterSpacing && letterSpacingControl) {
+        letterSpacingControl.value = prefs.letterSpacing;
+    }
+    
+    // 應用已保存的音景設置
+    if (prefs.soundscape) {
+        const soundCard = document.querySelector(`[data-sound="${prefs.soundscape}"]`);
+        if (soundCard) {
+            soundCards.forEach(c => c.classList.remove('active'));
+            soundCard.classList.add('active');
+        }
+    }
+    
+    // 監聽設置變更並保存
+    if (fontSizeControl) {
+        fontSizeControl.addEventListener('change', () => {
+            UserPreferences.save({ fontSize: parseFloat(fontSizeControl.value) });
+        });
+    }
+    
+    if (letterSpacingControl) {
+        letterSpacingControl.addEventListener('change', () => {
+            UserPreferences.save({ letterSpacing: parseFloat(letterSpacingControl.value) });
+        });
+    }
+    
+    // 監聽主題變更
+    themeButtons.forEach(chip => {
+        chip.addEventListener('click', () => {
+            UserPreferences.save({ theme: chip.dataset.value });
+        });
+    });
+    
+    // 監聽音景變更
+    soundCards.forEach(card => {
+        card.addEventListener('click', () => {
+            UserPreferences.save({ soundscape: card.dataset.sound });
+        });
+    });
+    
+    console.log('💾 User preferences loaded and persistence enabled');
+}
+
+// ===== BOOKMARK FUNCTIONALITY =====
+
+/**
+ * 添加書籤
+ * @param {string} bookTitle - 書籍標題
+ * @param {string} chapter - 章節
+ * @param {string} note - 備註
+ */
+function addBookmark(bookTitle, chapter, note = '') {
+    if (typeof Bookmarks === 'undefined') {
+        console.warn('Bookmarks module not loaded');
+        return;
+    }
+    
+    const bookId = bookTitle.replace(/\s+/g, '_').toLowerCase();
+    Bookmarks.add(bookId, {
+        chapter,
+        note,
+        position: window.scrollY
+    });
+    
+    if (typeof Toast !== 'undefined') {
+        Toast.success(`已添加書籤：${chapter}`, { duration: 2500 });
+    }
+    
+    if (typeof Analytics !== 'undefined') {
+        Analytics.featureUsed('bookmark_add');
+    }
+}
+
+/**
+ * 獲取書籍的所有書籤
+ * @param {string} bookTitle - 書籍標題
+ * @returns {array} 書籤列表
+ */
+function getBookmarks(bookTitle) {
+    if (typeof Bookmarks === 'undefined') return [];
+    
+    const bookId = bookTitle.replace(/\s+/g, '_').toLowerCase();
+    return Bookmarks.getByBook(bookId);
+}
+
+// ===== READING PROGRESS TRACKING =====
+
+/**
+ * 自動保存閱讀進度
+ */
+function initAutoSaveProgress() {
+    if (typeof ReadingProgress === 'undefined') return;
+    
+    // 從頁面元素或 URL 參數獲取當前書籍名稱
+    const bookTitleElement = document.querySelector('#livePreview .preview-header span:first-child');
+    const currentBook = bookTitleElement ? bookTitleElement.textContent.replace(/[《》]/g, '') : 'default';
+    let lastSaveTime = Date.now();
+    
+    // 監聽滾動事件
+    window.addEventListener('scroll', () => {
+        const now = Date.now();
+        if (now - lastSaveTime < 5000) return; // 每 5 秒最多保存一次
+        
+        const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+        ReadingProgress.save(currentBook, scrollPercent);
+        lastSaveTime = now;
+    });
+    
+    console.log('📖 Auto-save reading progress enabled');
+}
+
+// 在頁面完全加載後初始化自動保存
+window.addEventListener('load', () => {
+    setTimeout(initAutoSaveProgress, 1000);
+});
+
+main
 

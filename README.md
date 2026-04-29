@@ -1,102 +1,90 @@
-# ModernReader Royale
+# ModernReader - 現代化 Markdown 閱讀器
 
-ModernReader Royale 是一款專為頂級閱讀體驗打造的單頁網站樣板，結合光譜視覺、動態交互與禮賓級功能展示，呈現世界級的奢華閱讀品牌形象。
+基於 **Vue 3 + TypeScript + Vite** 打造的高性能 Markdown 閱讀器。
 
-## 功能亮點
+## ✨ 特色功能
 
-- **旗艦式 Hero 區塊**：玻璃質感裝置預覽與 AI 情緒調校說明卡，營造沉浸開場。
-- **Signature Experiences**：逐一顯示專屬閱讀場景，使用視差光暈與滾動動畫增添層次。
-- **Immersive Atelier 面板**：即時切換場景主題、字體比例、字距與音場，模擬客製化閱讀儀式。
-- **策展星圖**：橫向滑動的收藏卡片，呈現全球限量藏書的策展視覺。
-- **禮賓服務模組**：流動光暈與數據徽章展示 24/7 禮賓服務能量。
+- 📖 **優雅排版**：專注於閱讀體驗的精美設計
+- 🌓 **深色模式**：支援淺色/深色主題自動切換
+- 📑 **智能目錄**：自動生成可點擊的文章目錄
+- 🎨 **字體設定**：支援 Serif、Sans-serif、Monospace 三種字型
+- 📏 **字體大小**：可自由調整閱讀字體大小
+- 📂 **本機上傳**：支援 .md、.markdown、.txt 檔案
+- 📋 **一鍵複製**：程式碼區塊懸停即顯示複製按鈕
+- ⌨️ **快捷鍵**：完整鍵盤操作支援
 
-## 使用方式
+## ⌨️ 鍵盤快捷鍵
 
-1. 以任意靜態伺服器開啟專案根目錄（例如 `npx serve .`）。
-2. 造訪瀏覽器 `https://stust-kotewei.github.io/ModernReader/`（或對應埠口）體驗互動介面。
-3. 在 Immersive Atelier 區塊調整主題、字距與音場，感受動態反饋。
+| 快捷鍵 | 功能 |
+|--------|------|
+| `⌘/Ctrl + K` | 切換深色/淺色模式 |
+| `⌘/Ctrl + +` | 放大字體 |
+| `⌘/Ctrl + -` | 縮小字體 |
+| `⌘/Ctrl + O` | 開啟檔案選擇器 |
 
-## 開發與設計重點
+## 🚀 快速開始
 
-- 採用 Playfair Display 與 Inter 字體搭配，營造現代奢華氣質。
-- 全局使用玻璃擬態（Glassmorphism）、Aurora 漸層與軟質陰影呈現空間感。
-- 使用 Intersection Observer 與自訂動畫增強進場動態。
+```bash
+# 安裝依賴
+npm install
 
-歡迎依品牌需求進一步擴充內容或整合後端服務。
+# 啟動開發服務器
+npm run dev
 
+# 構建生產版本
+npm run build
+
+# 預覽生產構建
+npm run preview
+```
+
+## 🛠️ 技術堆疊
+
+- **前端框架**：Vue 3 (Composition API)
+- **語言**：TypeScript
+- **構建工具**：Vite
+- **Markdown 引擎**：markdown-it
+- **語法高亮**：highlight.js (按需加載)
+
+## 📊 性能優化
+
+ModernReader 經過深度優化，提供極致的閱讀體驗：
+
+- ✅ 標題提取優化（減少 DOM 操作）
+- ✅ 滾動事件節流（提升流暢度）
+- ✅ highlight.js 按需加載（bundle 減少 60%）
+- ✅ 智能錯誤處理和用戶反饋
+- ✅ 程式碼區塊一鍵複製功能
+
+詳見 [OPTIMIZATION.md](./OPTIMIZATION.md) 了解所有優化細節。
+
+## 📝 使用說明
+
+1. **上傳文件**：點擊工具列「開啟檔案」按鈕，或按 `⌘/Ctrl + O`
+2. **切換主題**：點擊月亮/太陽圖示，或按 `⌘/Ctrl + K`
+3. **調整字體**：使用工具列的字體選擇器和大小按鈕
+4. **目錄導航**：點擊左側目錄項目快速跳轉
+5. **複製程式碼**：懸停在程式碼區塊上，點擊複製按鈕
+
+## 🎯 支援的程式語言
+
+語法高亮支援 18 種常用程式語言：
+
+JavaScript, TypeScript, Python, Java, C++, C#, Go, Rust, PHP, Ruby, Bash, Shell, SQL, JSON, XML, HTML, CSS, Markdown, YAML
+
+## 📄 授權
+
+MIT License
+
+## 🙏 致謝
+
+本專案使用以下優秀的開源項目：
+
+- [Vue.js](https://vuejs.org/)
+- [Vite](https://vitejs.dev/)
+- [markdown-it](https://github.com/markdown-it/markdown-it)
+- [highlight.js](https://highlightjs.org/)
 
 ---
 
-## 🤖 技術架構
-
-**ModernReader** 是一個完整的AI驅動閱讀體驗平台，結合前端UI與後端AI框架：
-
-### 前端層 (Current Repository)
-- **ModernReader Royale UI** - 豪華閱讀介面
-- 玻璃擬態設計 (Glassmorphism)
-- Aurora 漸變背景效果
-- 響應式互動控制
-- GitHub Pages: [https://stust-kotewei.github.io/ModernReader/](https://stust-kotewei.github.io/ModernReader/)
-
-### 後端層 (AI Engine)
-- **Project H.O.L.O.** (Holistic Omni-sensory Literary Orchestra)
-- 深度語意分析 (NLP)
-- 多模態感知生成 (Multi-modal AI)
-- 情感與語調識別
-- Text-to-Speech, Text-to-Sound, Text-to-Scent
-- Repository: [AI-Reader](https://github.com/STUST-KOTEWEI/AI-Reader)
-
-### 整合特性
-
-✨ **完整技術棧**
-- Frontend: HTML5, CSS3, JavaScript (ES6+)
-- Backend: Python, NLP Models, Generative AI
-- Deployment: GitHub Pages + API Services
-
-🎯 **核心創新**
-1. **視覺體驗** - ModernReader Royale豪華UI
-2. **AI理解** - Project H.O.L.O.深度語意分析
-3. **多感官輸出** - 聽覺、觸覺、嗅覺整合
-4. **個性化** - AI驅動的閱讀推薦與適應
-
----
-
-## 🔗 相關專案
-
-- [AI-Reader (Project H.O.L.O.)](https://github.com/STUST-KOTEWEI/AI-Reader) - AI後端引擎
-- [Profile](https://github.com/STUST-KOTEWEI/profile) - 研究者個人網站
-
----
-
-## 📝 授權
-
-MIT License © 2025 Te-Wei Ko (柯德瑋)
-
----
-
-## 👨‍💻 作者
-
-**柯德瑋 (Te-Wei Ko)**
-- 情感運算與多模態互動研究者
-- 南臺科技大學 資訊工程系
-- 專注於AI、E-paper技術與多感官使用者體驗
-
----
-
-## 🤖 開發說明
-
-**本專案使用 AI 輔助開發工具**
-
-本專案在開發過程中使用了以下 AI 輔助工具，以提升開發效率和代碼質量：
-
-- **GitHub Copilot**: 用於代碼補全、函數生成和重構建議
-- **Google Labs Jules**: 協助專案架構設計和技術文檔撰寫
-
-這些工具在開發過程中提供了寶貴的輔助，但所有最終決策、架構設計和代碼審查仍由開發者本人完成。使用 AI 工具是為了：
-
-✨ 加速開發流程
-📚 學習最佳實踐
-⚫ 提高代碼質量
-🎨 專注於創新功能實現
-
-我們相信透明地披露 AI 工具的使用，有助於推動學術界和工業界對 AI 輔助開發的理解與規範。
+**享受舒適的 Markdown 閱讀體驗！** 📖✨
