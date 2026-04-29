@@ -1,51 +1,21 @@
-```
 # Dependencies
 node_modules/
 
-# Build outputs
+# Build output
 dist/
-build/
-target/
 
-# TypeScript/JavaScript
-*.tsbuildinfo
-*.js.map
-*.jsx.map
-*.ts.map
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
 
 # Environment
 .env
 .env.local
-.env.*
-
-# Editors
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Logs
-*.log
-
-# Coverage
-coverage/
-htmlcov/
-*.coverage
-
-# Temporary files
-*.tmp
-.DS_Store
-Thumbs.db
-
-# Python (if present)
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-*.so
-.venv/
-venv/
-.pytest_cache/
-.mypy_cache/
-```

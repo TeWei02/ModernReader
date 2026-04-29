@@ -1,0 +1,16 @@
+// Quantum Search Example
+algorithm grover_search {
+  param database: List[String]
+  param target: String
+  
+  qubits n = log2(database.length)
+  superposition(all qubits)
+  
+  oracle mark(target)
+  diffusion amplify()
+  
+  measure result
+  return database[result]
+}
+
+execute grover_search(["apple", "banana", "cherry"], "cherry")

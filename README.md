@@ -1,143 +1,104 @@
-# ModernReader - 下一代語義化閱讀平台
+# Semantica: The Universal Language
 
-## 🚀 願景
+**One Language to Rule Them All** - Replacing React, Python, C, TypeScript with a unified semantic execution environment.
 
-用 **Semantica** 統一語義層取代所有 API，讓 AI Agent 在 **Moltbook** 環境中透過 **Claw** 協議直接交流，實現：
-- ✅ 零 API 整合成本
-- ✅ 免費高效運行
-- ✅ 原生量子計算支援
-- ✅ 多 Agent 無縫協作
+## Core Philosophy
+- **No APIs**: Direct semantic intent declaration
+- **Quantum-Native**: Built-in quantum simulation and execution
+- **Agent-First**: Native multi-agent communication via Claw protocol
+- **Zero Boilerplate**: Write what you mean, not how to do it
 
-## 📁 專案結構
-
+## Project Structure
 ```
 /workspace
-├── client/              # React 前端應用
-├── server/              # TypeScript 後端服務
-├── semantica/           # 語義語言核心 ⭐
-│   ├── parser/          # 語法解析器
-│   ├── runtime/         # 執行環境（含量子模擬）
-│   └── ...
-├── claw/                # Agent 通訊協議 ⭐
-│   ├── protocol/        # Claw 協議實現
-│   └── ...
-├── moltbook/            # Agent 執行環境 ⭐
-│   ├── environment/     # 環境管理
-│   └── ...
-├── docs/                # 文檔
-├── archive/             # 歸檔的舊專案
-└── tests/               # 測試
+├── core/               # Semantics Runtime & Compiler
+│   ├── parser/         # Syntax parser
+│   ├── compiler/       # Semantic to Machine code
+│   └── runtime/        # Execution engine (Quantum + Classical)
+├── agents/             # Pre-built Agent Library
+│   ├── reader/         # Document processing
+│   ├── summarizer/     # Text summarization
+│   └── quantum/        # Quantum algorithm agents
+├── protocols/          # Communication Protocols
+│   └── claw/           # Claw Protocol Implementation
+├── moltbook/           # Shared Execution Environment
+│   ├── registry/       # Agent Discovery
+│   └── session/        # State Management
+├── stdlib/             # Standard Library
+│   ├── io/             # Input/Output
+│   ├── quantum/        # Quantum primitives
+│   └── ai/             # AI primitives
+├── examples/           # Usage Examples
+└── README.md           # This file
 ```
 
-## 🔥 快速開始
+## Quick Start
 
-### 安裝依賴
+### 1. Install Semantics Runtime
 ```bash
-npm install
+npm install -g semantica-runtime
 ```
 
-### 開發模式
-```bash
-# 啟動前端
-npm run dev
-
-# 啟動後端
-npm run dev:server
-```
-
-### 使用 Semantica
-```typescript
-import { SemanticaParser } from './semantica/parser'
-import { MoltbookEnvironment } from './moltbook/environment'
-import { ClawProtocol } from './claw/protocol'
-
-const parser = new SemanticaParser()
-const moltbook = new MoltbookEnvironment()
-const claw = new ClawProtocol()
-
-// 解析語義代碼
-const ast = parser.parse(`
-intent read {
-  source: "article.txt"
-  agent: @summarizer
-}
-`)
-```
-
-## 📚 文檔
-
-- [新架構說明](./docs/NEW_ARCHITECTURE.md)
-- [Semantica 語言規範](./docs/SEMANTICA_LANGUAGE.md)
-- [API 參考](./docs/API.md)
-
-## 🌟 核心特性
-
-### 1. Semantica 語義語言
-聲明式語法表達意圖，無需學習複雜 API。
-
+### 2. Write Your First Program
 ```semantica
-intent summarize {
-  source: "document.pdf"
-  agent: @summarizer
-  output: @user.format
+// hello.sm
+intent greet {
+  target: @user
+  message: "Hello from Semantica!"
+}
+
+execute greet
+```
+
+### 3. Run It
+```bash
+semantica run hello.sm
+```
+
+## Key Features
+
+### 🚀 Replace All Languages
+- **Frontend**: Declarative UI via semantic intents
+- **Backend**: Logic defined by agent capabilities
+- **Systems**: Direct memory/quantum access when needed
+- **Scripting**: Natural language-like syntax
+
+### 🧠 Agent Communication (Claw Protocol)
+```semantica
+// Define agent interaction
+flow research {
+  @researcher fetch(topic: "quantum computing")
+  @summarizer condense(result, length: short)
+  @presenter visualize(result, format: slide)
 }
 ```
 
-### 2. Claw 通訊協議
-Agent 間原生通訊，支援語義路由、優先級、TTL。
-
-```typescript
-await claw.send({
-  from: '@user',
-  to: '@researcher',
-  semanticRoute: '@researcher/search',
-  content: { query: '...' },
-  priority: 'high'
-})
+### ⚛️ Quantum Native
+```semantica
+// Quantum algorithm in pure Semantica
+algorithm grover_search {
+  param database: List[String]
+  param target: String
+  
+  qubits n = log2(database.length)
+  superposition(all qubits)
+  
+  oracle mark(target)
+  diffusion amplify()
+  
+  measure result
+  return database[result]
+}
 ```
 
-### 3. Moltbook 執行環境
-Agent 註冊、發現、會話管理一應俱全。
+### 🆓 No API Costs
+Everything runs locally or in the distributed Moltbook network. No external API calls needed.
 
-```typescript
-moltbook.registerAgent({
-  id: '@summarizer',
-  capabilities: ['summarize', 'extract'],
-  status: 'active'
-})
-```
+## Documentation
+- [Language Specification](docs/LANGUAGE_SPEC.md)
+- [Claw Protocol](docs/CLAW_PROTOCOL.md)
+- [Moltbook Environment](docs/MOLTBOOK_ENV.md)
+- [Quantum Primitives](docs/QUANTUM_PRIMITIVES.md)
 
-### 4. 量子計算整合
-原生支援量子電路模擬與優化。
-
-```typescript
-const circuit = quantum.createCircuit(2)
-quantum.hadamard(circuit.id, 0)
-quantum.cnot(circuit.id, 0, 1)
-const result = quantum.simulate(circuit.id)
-```
-
-## 🛠️ 技術棧
-
-- **前端**: React 18 + TypeScript + Vite + TailwindCSS
-- **後端**: TypeScript + Express
-- **語義層**: Semantics (自研)
-- **通訊**: Claw Protocol (自研)
-- **環境**: Moltbook (自研)
-- **狀態管理**: Zustand
-- **路由**: React Router
-
-## 📈 開發路線圖
-
-- [x] Phase 1: 核心基礎架構
-- [ ] Phase 2: 功能完善
-- [ ] Phase 3: 整合 ModernReader
-- [ ] Phase 4: 生態系統建設
-
-## 🤝 貢獻
-
-歡迎貢獻！請查看 [NEW_ARCHITECTURE.md](./docs/NEW_ARCHITECTURE.md) 了解詳細計劃。
-
-## 📄 授權
-
-MIT License
+## License
+MIT - Free for everyone, forever.
