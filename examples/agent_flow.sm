@@ -1,0 +1,8 @@
+// Multi-Agent Research Flow
+flow research {
+  @researcher fetch(topic: "quantum computing")
+  @summarizer condense(result, length: short)
+  @presenter visualize(result, format: slide)
+}
+
+execute research
