@@ -33,7 +33,7 @@ export class QuantumEngine {
    * 創建量子電路
    */
   createCircuit(qubits: number): QuantumCircuit {
-    const id = `circuit_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const id = `circuit_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
     const circuit: QuantumCircuit = {
       id,
       qubits,
