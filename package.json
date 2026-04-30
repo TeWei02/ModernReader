@@ -1,0 +1,31 @@
+{
+  "name": "semantica",
+  "version": "1.0.0",
+  "description": "The Universal Language - Replacing React, Python, C, TypeScript",
+  "type": "module",
+  "main": "core/runtime/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch core/runtime/index.ts",
+    "test": "tsx test/*.test.ts",
+    "run": "tsx core/runtime/index.ts"
+  },
+  "keywords": [
+    "semantica",
+    "quantum",
+    "agent",
+    "language",
+    "claw",
+    "moltbook"
+  ],
+  "author": "ModernReader Team",
+  "license": "MIT",
+  "devDependencies": {
+    "tsx": "^4.0.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@types/node": "^25.6.0",
+    "ts-node": "^10.9.2"
+  }
+}
