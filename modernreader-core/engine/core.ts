@@ -4,11 +4,11 @@
  * 支援多模態解析、量子加速、學術處理
  */
 
-import { SemanticaParser } from './parser';
-import { QuantumEngine } from './quantum';
-import { AcademicModule } from './academic';
-import { MCPBridge } from './mcp';
-import { ActionRunner } from './actions';
+import { SemanticaParser } from './parser/index.js';
+import { QuantumEngine } from './quantum/index.js';
+import { AcademicModule } from '../academic/index.js';
+import { MCPBridge } from '../mcp/index.js';
+import { ActionRunner } from '../actions/index.js';
 
 export interface ModernReaderConfig {
   language: 'semantica';
