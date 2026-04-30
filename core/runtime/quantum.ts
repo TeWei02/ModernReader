@@ -17,7 +17,7 @@ export class QuantumSimulator {
   private circuits: Map<string, QuantumCircuit> = new Map()
   
   createCircuit(numQubits: number): string {
-    const id = `qc_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+    const id = `qc_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`
     const qubits: Qubit[] = Array(numQubits).fill(null).map(() => ({ state: [1, 0] })) // |0⟩ state
     this.circuits.set(id, { id, qubits, gates: [] })
     return id
