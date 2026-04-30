@@ -34,7 +34,7 @@ export class SemanticaParser {
    * 解析 intent
    */
   private parseIntent(code: string): AST {
-    const match = code.match(/intent\s+(\w+)\s*\{([\s\S]*)\}/);
+    const match = code.match(/intent\s+(\w+)\s*\{([\s\S]*?)\}/);
     if (!match) {
       throw new Error('Invalid intent syntax');
     }
