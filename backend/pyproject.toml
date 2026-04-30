@@ -1,3 +1,0 @@
-[bild-system]
-requires = ["hatchling"]
-build-backend

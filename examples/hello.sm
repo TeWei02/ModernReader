@@ -1,0 +1,7 @@
+// Hello World in Semantica
+intent greet {
+  target: @user
+  message: "Hello from Semantica!"
+}
+
+execute greet
