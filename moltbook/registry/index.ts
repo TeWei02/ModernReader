@@ -40,6 +40,10 @@ export class AgentRegistry {
     )
   }
   
+  discover(capability: string): Agent[] {
+    return this.findByCapability(capability)
+  }
+  
   getAll(): Agent[] {
     return Array.from(this.agents.values())
   }

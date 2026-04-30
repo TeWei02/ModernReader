@@ -75,7 +75,9 @@ export class ClawProtocol {
           from: '@system',
           to: route.split('/')[0],
           semanticRoute: route,
-          content
+          content,
+          ttl: 30000,
+          priority: 'normal'
         })
         responses.push(response)
       }

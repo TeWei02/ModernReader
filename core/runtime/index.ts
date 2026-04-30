@@ -47,7 +47,9 @@ export class SemanticaRuntime {
         from: '@runtime',
         to: params.agent.replace('@', ''),
         semanticRoute: `${params.agent}/${name}`,
-        content: params
+        content: params,
+        ttl: 30000,
+        priority: 'normal'
       })
       return response
     }
@@ -66,7 +68,9 @@ export class SemanticaRuntime {
           from: '@runtime',
           to: step.name!,
           semanticRoute: `${step.name}/${Object.keys(step.params!)[0]}`,
-          content: step.params
+          content: step.params,
+          ttl: 30000,
+          priority: 'normal'
         })
         results.push(response)
       }

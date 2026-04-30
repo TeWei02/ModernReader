@@ -4,7 +4,7 @@
  */
 
 export interface ASTNode {
-  type: 'intent' | 'flow' | 'algorithm' | 'agent_call'
+  type: 'intent' | 'flow' | 'algorithm' | 'agent_call' | 'quantum_op'
   name?: string
   params?: Record<string, any>
   body?: ASTNode[]
@@ -52,7 +52,7 @@ export class SemanticaParser {
       // Parameter
       if (trimmed.startsWith('param ')) {
         const [, paramName, , paramType] = trimmed.split(' ')
-        if (currentBlock?.type === 'algorithm') {
+        if (currentBlock?.type === 'algorithm' && currentBlock.params) {
           currentBlock.params[paramName] = paramType
         }
         continue
@@ -83,7 +83,7 @@ export class SemanticaParser {
       // Key-value params
       if (trimmed.includes(':')) {
         const [key, value] = trimmed.split(':').map(s => s.trim())
-        if (currentBlock && currentBlock.type === 'intent') {
+        if (currentBlock && currentBlock.type === 'intent' && currentBlock.params) {
           currentBlock.params[key] = value.replace(/"/g, '')
         }
       }
