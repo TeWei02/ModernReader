@@ -1,52 +1,10 @@
-# A Neuro-Semantic Framework for Multi-Modal Narrative Immersion 
+# AI-Reader (Archived)
 
+> This repository has been merged into [ModernReader](https://github.com/TeWei02/ModernReader).
+> All code now lives under the `ai-reader/` subdirectory.
+>
+> Please visit [ModernReader](https://github.com/TeWei02/ModernReader) for the latest updates.
 
-> **🔗 UI 層：** 這是 **Project H.O.L.O.** 的 AI 後端引擎。如果您正在尋找豪華UI，請查看 [ModernReader](https://github.com/STUST-KOTEWEI/ModernReader) —— 我們的前端閱讀體驗平台！
-## 專案願景 
-故事的核心在於體驗，而非僅是文字。數百年來，我們透過視覺解碼符號來理解故事，但文字本身僅是通往故事世界的媒介。
+## Original Description
 
-Project H.O.L.O. 的使命，就是打破這個媒介的限制，提出一個大膽的問題：如果我們不僅能"閱讀"故事，而是能真正地"感受"它呢？ 
-
-## 專案目標 
-- 重新定義"閱讀"的體驗，讓讀者不僅僅是解讀文字，而是全方位感受故事中的情感與情境，成為故事的一部分。 
-
-## 核心技術 
-1. **深度語意分析**：
-   - 使用自然語言處理 (NLP) 技術，將文本解構為語意單元。
-   - 分析情感、語調、角色關係與故事背景。
-
-2. **生成式 AI**：
-   - 基於語意單元創建動態的聽覺體驗（例如角色對話、環境音效）。
-   - 使用文本到聲音 (Text-to-Sound) 與文本到氣味 (Text-to-Scent) 的生成技術，模擬多感官回饋。
-
-3. **多模態感知系統**：
-   - 整合聽覺、觸覺與嗅覺回饋，打造沉浸式的敘事體驗。
-   - 開發 API 供硬體設備（如觸覺反饋裝置）使用。
-
-## 預期成果 
-- 一個沉浸式敘事框架，能夠將任何文本轉化為多感官體驗。
-- 支援多語言，應用於教育、娛樂與療癒場景。 
-
-## 版權與貢獻 
-歡迎對此專案感興趣的開發者提供意見並提交 PR.
-
-
----
-
-## 🤖 開發說明
-
-**本專案使用 AI 輔助開發工具**
-
-本專案在開發過程中使用了以下 AI 輔助工具，以提升開發效率和代碼質量：
-
-- **GitHub Copilot**: 用於代碼補全、函數生成和重構建議
-- **Google Labs Jules**: 協助專案架構設計和技術文檔撰寫
-
-這些工具在開發過程中提供了寶貴的輔助，但所有最終決策、架構設計和代碼審查均由開發者本人完成。使用 AI 工具是為了：
-
-✨ 加速開發流程  
-📚 學習最佳實踐  
-🔍 提高代碼質量  
-🚀 專注於創新功能實現  
-
-我們相信透明地披露 AI 工具的使用，有助於推動學術界和工業界對 AI 輔助開發的理解與規範。
+AI-Reader / Project H.O.L.O. — An AI framework that deconstructs text through deep semantic analysis, then reconstructs narrative through generative AI to engage the full spectrum of human perception (visual, auditory, and beyond).
