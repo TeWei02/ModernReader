@@ -83,3 +83,37 @@ yarn-error.log*
 
 # Temporary files
 /tmp/
+
+# From AI-Reader
+# API Configuration
+# Capacitor
+# Database
+# Firebase / Google Services
+# IDE / Editor specific
+# Log files
+# Media files
+# Node.js
+# OS specific
+# Python
+# Security / API Keys
+**/GoogleService-Info.plist
+**/config/api-keys.json
+**/firebase.js
+**/google-services.json
+*.db
+*.mp3
+*.pyd
+*.pyo
+.Python
+.env.*.local
+/android/
+/ios/
+/www/
+GoogleService-Info.plist
+data/
+env/
+google-services.json
+logs/
+npm-debug.log
+pnpm-debug.log
+yarn-error.log
