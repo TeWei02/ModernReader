@@ -1,48 +1,67 @@
-# Semantica: The Universal Language
+# Semantica + H.O.L.O.: Unified Semantic Narrative Engine
 
-[![Release](https://img.shields.io/github/v/release/TeWei02/ModernReader?style=flat-square)](https://github.com/TeWei02/ModernReader/releases)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 
-**One Language to Rule Them All** - Replacing React, Python, C, TypeScript with a unified semantic execution environment.
+融合 **ModernReader (Semantica)** 的統一語義執行環境與 **AI-Reader (H.O.L.O.)** 的多模態敘事框架，打造 AI 驅動的下一代閱讀與敘事體驗。
 
 ## Core Philosophy
-- **No APIs**: Direct semantic intent declaration
-- **Quantum-Native**: Built-in quantum simulation and execution
-- **Agent-First**: Native multi-agent communication via Claw protocol
-- **Zero Boilerplate**: Write what you mean, not how to do it
+
+- **Semantica**: 統一語義執行環境 — 無 API，直接語義意圖宣告
+- **H.O.L.O.**: 多模態敘事框架 — Python 語義分析 + 多模態生成
+- **Agent-First**: 透過 Claw 協議實現原生多 agent 通訊
+- **Quantum-Native**: 內建量子模擬與執行
+- **Zero Boilerplate**: 寫你所想，而非如何實現
 
 ## Project Structure
+
 ```
-/workspace
-├── core/               # Semantics Runtime & Compiler
-│   ├── parser/         # Syntax parser
-│   ├── compiler/       # Semantic to Machine code
-│   └── runtime/        # Execution engine (Quantum + Classical)
-├── agents/             # Pre-built Agent Library
-│   ├── reader/         # Document processing
-│   ├── summarizer/     # Text summarization
-│   └── quantum/        # Quantum algorithm agents
-├── protocols/          # Communication Protocols
-│   └── claw/           # Claw Protocol Implementation
-├── moltbook/           # Shared Execution Environment
-│   ├── registry/       # Agent Discovery
-│   └── session/        # State Management
-├── stdlib/             # Standard Library
-│   ├── io/             # Input/Output
-│   ├── quantum/        # Quantum primitives
-│   └── ai/             # AI primitives
-├── examples/           # Usage Examples
-└── README.md           # This file
+/
+├── core/                  # Semantica 語義執行時 & 編譯器
+│   ├── parser/            # 語法解析器
+│   └── runtime/           # 執行引擎 (Quantum + Classical)
+├── semantica/             # Semantica 語言核心
+│   ├── parser/            # 語義解析器
+│   └── runtime/           # 執行環境
+├── protocols/             # 通訊協議
+│   └── claw/              # Claw 協議實現
+├── moltbook/              # 共享執行環境
+│   ├── registry/          # Agent 發現
+│   └── environment/       # 執行環境管理
+├── claw/                  # Claw 協議核心
+│   └── protocol/          # 協議定義
+├── modernreader-core/     # ModernReader 核心模組
+│   ├── engine/            # 渲染引擎
+│   ├── actions/           # 行為系統
+│   ├── mcp/               # MCP 整合
+│   └── academic/          # 學術工具
+├── holo/                  # H.O.L.O. 多模態敘事引擎 (AI-Reader)
+│   ├── ingestion/         # 內容攝取
+│   ├── sensory/           # 感官模態
+│   ├── auditory/          # 聽覺分析
+│   ├── lang/              # 語言處理
+│   ├── quantum/           # 量子語義分析
+│   ├── recommendations/   # 推薦系統
+│   ├── social/            # 社群互動
+│   ├── history/           # 閱讀歷史
+│   ├── bookmarks/         # 書籤管理
+│   ├── database/          # 資料持久層
+│   └── auth/              # 認證模組
+├── docs/                  # 技術文檔
+├── examples/              # 使用範例
+├── tests/                 # 測試（合併後）
+├── .github/               # CI/CD 工作流
+└── README.md
 ```
 
 ## Quick Start
 
-### 1. Install Semantics Runtime
+### Semantica Runtime
 ```bash
-npm install -g semantica-runtime
+npm install
+npx semantica run examples/hello.sm
 ```
 
-### 2. Write Your First Program
+Write your first program:
 ```semantica
 // hello.sm
 intent greet {
@@ -53,20 +72,27 @@ intent greet {
 execute greet
 ```
 
-### 3. Run It
+### H.O.L.O. Narrative Engine
 ```bash
-semantica run hello.sm
+pip install -r requirements-dev.txt
+python holo/main.py
 ```
 
 ## Key Features
 
-### 🚀 Replace All Languages
+### 🚀 Semantica — Replace All Languages
 - **Frontend**: Declarative UI via semantic intents
 - **Backend**: Logic defined by agent capabilities
 - **Systems**: Direct memory/quantum access when needed
 - **Scripting**: Natural language-like syntax
 
-### �� Agent Communication (Claw Protocol)
+### 📖 H.O.L.O. — Multimodal Narrative
+- **Multi-Sensory**: Auditory, visual, and textual modality analysis
+- **Semantic Ingestion**: Intelligent content parsing and structuring
+- **Quantum Analysis**: Quantum-inspired semantic similarity computation
+- **Social Reading**: Collaborative annotations, shared bookmarks
+
+### 🤝 Agent Communication (Claw Protocol)
 ```semantica
 // Define agent interaction
 flow research {
@@ -82,74 +108,31 @@ flow research {
 algorithm grover_search {
   param database: List[String]
   param target: String
-  
+
   qubits n = log2(database.length)
   superposition(all qubits)
-  
+
   oracle mark(target)
   diffusion amplify()
-  
+
   measure result
   return database[result]
 }
 ```
 
-### 🆓 No API Costs
-Everything runs locally or in the distributed Moltbook network. No external API calls needed.
-
 ## Documentation
 - [Language Specification](docs/LANGUAGE_SPEC.md)
-- [Claw Protocol](docs/CLAW_PROTOCOL.md)
-- [Moltbook Environment](docs/MOLTBOOK_ENV.md)
-- [Quantum Primitives](docs/QUANTUM_PRIMITIVES.md)
+- [Release System](docs/RELEASE_SYSTEM_SUMMARY.md)
 
 ---
 
 ## 🚀 發行版本 (Releases)
 
-### 自動化發布系統
-
-本專案使用 GitHub Actions 實現自動化發布流程：
-
-#### 📌 手動版本發布
-要建立新的版本發布，請按照以下步驟：
-
-```bash
-# 1. 更新 VERSION 文件
-echo "1.0.1" > VERSION
-
-# 2. 提交變更
-git add VERSION
-git commit -m "Bump version to 1.0.1"
-git push
-
-# 3. 建立版本標籤
-git tag -a v1.0.1 -m "Release version 1.0.1"
-git push origin v1.0.1
-```
-
-推送版本標籤後，GitHub Actions 會自動：
-- 建立 ZIP 壓縮檔
-- 生成發布說明
-- 建立 GitHub Release
-- 上傳發布文件
-
-#### 🤖 自動發布
-每次推送到 `main` 分支並修改以下文件時，系統會自動建立發布：
-- `index.html`
-- `styles.css`
-- `app.js`
-
-自動發布使用日期和構建編號命名（例如：`v2025.12.22.build123`）
-
 ### 版本命名規則
-
 - **手動版本**: `v{major}.{minor}.{patch}` (例如: v1.0.0, v2.1.3)
-- **自動版本**: `v{YYYY}.{MM}.{DD}.build{count}` (例如: v2025.12.22.build45)
 
 ### 查看發布歷史
-
-訪問 [Releases 頁面](https://github.com/TeWei02/ModernReader/releases) 查看所有發布版本和下載文件。
+訪問 [Releases 頁面](https://github.com/TeWei02/ModernReader/releases) 查看所有發布版本。
 
 ---
 
