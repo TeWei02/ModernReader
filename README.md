@@ -4,6 +4,8 @@
 
 融合 **ModernReader (Semantica)** 的統一語義執行環境與 **AI-Reader (H.O.L.O.)** 的多模態敘事框架，打造 AI 驅動的下一代閱讀與敘事體驗。
 
+> **ModernReader 是一個把長篇文字變成「多感官、可呼吸節奏」的閱讀系統，專門為高壓、大量閱讀場景設計。** — [完整產品願景](docs/PRODUCT_VISION.md)
+
 ## Core Philosophy
 
 - **Semantica**: 統一語義執行環境 — 無 API，直接語義意圖宣告
@@ -208,6 +210,7 @@ ModernReader Core (語言引擎)
 ---
 
 ## Documentation
+- [產品定位與願景](docs/PRODUCT_VISION.md) — 核心痛點、設計原則、功能模組與未來路線圖
 - [Language Specification](docs/LANGUAGE_SPEC.md)
 - [Release System](docs/RELEASE_SYSTEM_SUMMARY.md)
 
