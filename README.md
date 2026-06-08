@@ -1,175 +1,55 @@
-# A Neuro-Semantic Framework for Multi-Modal Narrative Immersion 
+```markdown
+# ModernReader — 現代化閱讀器
 
-> **🎉 整合版本：** AI-Reader 與 ModernReader 已整合！現在前端 UI 和後端引擎都在同一個專案中。
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/yourusername/ModernReader?style=social)](https://github.com/yourusername/ModernReader)
+[![GitHub forks](https://img.shields.io/github/forks/yourusername/ModernReader?style=social)](https://github.com/yourusername/ModernReader)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]()
 
-## 專案願景 
-故事的核心在於體驗，而非僅是文字。數百年來，我們透過視覺解碼符號來理解故事，但文字本身僅是通往故事世界的媒介。
+> 一個簡潔、高效、專注於閱讀體驗的現代化閱讀器。支援多種文件格式，提供沉浸式閱讀模式，讓您享受無干擾的閱讀時光。
 
-Project H.O.L.O. 的使命，就是打破這個媒介的限制，提出一個大膽的問題：如果我們不僅能"閱讀"故事，而是能真正地"感受"它呢？ 
+## 功能特色
 
-## 專案目標 
-- 重新定義"閱讀"的體驗，讓讀者不僅僅是解讀文字，而是全方位感受故事中的情感與情境，成為故事的一部分。 
+- **沉浸式閱讀模式**：去除干擾，專注於內容本身。
+- **多格式支援**：支援 EPUB、PDF、TXT、Markdown 等常見格式。
+- **自訂主題**：提供多種配色方案，包括夜間模式。
+- **書籤與筆記**：輕鬆標記重點，添加個人筆記。
+- **離線閱讀**：下載後無需網路即可閱讀。
+- **跨平台同步**（即將推出）：在不同裝置間同步閱讀進度。
 
-## 核心技術 
-1. **深度語意分析**：
-   - 使用自然語言處理 (NLP) 技術，將文本解構為語意單元。
-   - 分析情感、語調、角色關係與故事背景。
+## 安裝
 
-2. **影像識別與情緒分析**：
-   - 整合 Google Vision API，實現影像情緒檢測。
-   - 使用 PaddleOCR 提取文字，支持多語言和模糊影像。
-   - 提供完整的圖片標籤識別和文字提取功能。
-
-3. **生成式 AI**：
-   - 使用 OpenAI GPT-4 API 生成表情文字與播客腳本。
-   - 支持多種內容類型：摘要、分析、續寫等。
-   - 基於語意單元創建動態的聽覺體驗（例如角色對話、環境音效）。
-   - 使用文本到聲音 (Text-to-Sound) 與文本到氣味 (Text-to-Scent) 的生成技術，模擬多感官回饋。
-
-4. **多感官輸出**：
-   - 使用 Google TTS 生成語音，支持多語言。
-   - 整合聽覺、觸覺與嗅覺回饋，打造沉浸式的敘事體驗。
-   - 開發 API 供硬體設備（如觸覺反饋裝置）使用。
-
-## 專案架構
-
-```
-AI-Reader/
-├── web/
-│   ├── frontend/          # React 前端應用 (整合 ModernReader UI)
-│   │   ├── src/
-│   │   │   ├── components/  # React 組件
-│   │   │   │   ├── Header.jsx
-│   │   │   │   ├── HeroSection.jsx
-│   │   │   │   ├── VisionSection.jsx
-│   │   │   │   ├── ScenariosSection.jsx
-│   │   │   │   ├── InteractiveDemo.jsx
-│   │   │   │   ├── EngineSection.jsx
-│   │   │   │   ├── ProgressSection.jsx
-│   │   │   │   ├── FutureSection.jsx
-│   │   │   │   └── Footer.jsx
-│   │   │   └── App.jsx
-│   │   └── package.json
-│   └── backend/           # FastAPI 後端
-│       └── main.py
-├── holo/                  # 核心 Python 模組
-│   ├── ingestion/         # 文本分段處理
-│   ├── auditory/          # TTS 語音合成
-│   └── sensory/           # 觸覺回饋模擬
-└── tests/                 # 測試檔案
-```
-
-## 快速開始
-
-### 前端開發
+### 從原始碼建置
 
 ```bash
-cd web/frontend
+git clone https://github.com/yourusername/ModernReader.git
+cd ModernReader
 npm install
-npm run dev
+npm run build
 ```
 
-### 後端開發
+### 使用預編譯版本
 
-```bash
-cd web/backend
-pip install -r requirements.txt
-uvicorn main:app --reload
+前往 [Releases](https://github.com/yourusername/ModernReader/releases) 頁面下載對應平台的安裝檔。
+
+## 使用方式
+
+啟動應用後，您可以透過以下方式匯入文件：
+
+1. 點擊「開啟文件」按鈕，選擇本地文件。
+2. 將文件拖曳至應用視窗。
+3. 使用命令列引數：`modernreader /path/to/file.epub`
+
+閱讀時可使用快捷鍵：
+- `Ctrl + +` / `Ctrl + -`：縮放字型
+- `Ctrl + D`：新增書籤
+- `Ctrl + N`：新增筆記
+
+## 授權條款
+
+本專案採用 MIT 授權條款。詳情請參閱 [LICENSE](LICENSE) 檔案。
+
+---
+
+Automated by Davin Portfolio Engine
 ```
-
-## 主要功能
-
-### 🎨 現代化 UI (來自 ModernReader)
-- **多輸入方式**：文字輸入、書籍封面/ISBN 掃描、臉部情緒辨識
-- **互動式演示**：HSP 引擎可視化、感官回饋模擬
-- **響應式設計**：支援桌面和移動設備
-
-### 🔊 多模態輸出
-- **聽覺輸出**：TTS 語音合成，支援多種語言
-- **觸覺回饋**：觸覺模式生成（心跳、脈衝、震動等）
-- **知識圖譜**：文本分段與語意分析
-
-## 預期成果 
-- 一個沉浸式敘事框架，能夠將任何文本轉化為多感官體驗。
-- 完整的影像識別系統，支持情緒檢測和文字提取。
-- 強大的生成式 AI 功能，可生成播客腳本、摘要、分析等內容。
-- 支援多語言，應用於教育、娛樂與療癒場景。
-- 直觀的跨平台使用介面，提供無障礙設計。
-
-## API 端點
-### 影像識別
-- `POST /analyze_image` - 上傳圖片進行情緒檢測、標籤識別和文字提取
-
-### 生成式 AI
-- `POST /generate_content` - 生成表情文字、播客腳本、摘要等內容
-- `POST /tts` - 文字轉語音
-
-### 多模態體驗
-- `POST /generate_immersion` - 生成沉浸式體驗（聽覺、感官、知識圖譜）
-
-## 安裝與使用
-### 後端
-```bash
-cd web/backend
-pip install -r requirements.txt
-uvicorn main:app --reload
-```
-
-### 前端
-```bash
-cd web/frontend
-npm install
-npm run dev
-```
-
-## 環境變數配置
-創建 `.env` 文件並設置以下變數：
-```
-OPENAI_API_KEY=your_openai_api_key
-GOOGLE_APPLICATION_CREDENTIALS=path/to/google-credentials.json
-```
-
-## MultisensoryReader-Orchestrator
-
-我們已經實作了 MultisensoryReader-Orchestrator，這是一個協調文本處理、情感檢測、語音合成和觸覺/嗅覺設備控制的系統。
-
-### 主要功能
-
-- **ReaderAgent**: 文本攝取、分段處理和重點提取
-- **EmotionAgent**: 從文本或語音樣本預測情感，並映射到 TTS 語音預設
-- **DeviceAgent**: 將重點和情感事件映射到觸覺和嗅覺模式
-- **MemoryAgent**: 用戶偏好和 RAG 搜索
-- **Orchestrator**: 協調所有代理並實現主要工作流程
-
-### API 端點
-
-- `POST /orchestrator/play` - 開始播放文本並生成多感官體驗
-- `POST /orchestrator/pause` - 暫停當前播放
-- `POST /orchestrator/seek` - 跳轉到特定段落
-- `GET /orchestrator/summary` - 獲取當前會話摘要
-
-### 快速開始
-
-1. 安裝依賴：
-```bash
-cd web/backend
-pip install -r requirements.txt
-```
-
-2. 啟動後端服務：
-```bash
-uvicorn main:app --reload
-```
-
-3. 訪問 API 文檔：
-http://localhost:8000/docs
-
-4. 運行示例：
-```bash
-python examples/orchestrator_demo.py
-```
-
-詳細文檔請參考 [holo/orchestrator/README.md](holo/orchestrator/README.md)
-
-## 版權與貢獻 
-歡迎對此專案感興趣的開發者提供意見並提交 PR.
