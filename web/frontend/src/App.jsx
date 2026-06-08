@@ -1,14 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import './App.css';
-import UserProfile from './components/UserProfile';
-import ReadingProgress from './components/ReadingProgress';
-import FavoritesList from './components/FavoritesList';
-import LoginPage from './components/LoginPage';
-import NotificationsPanel from './components/NotificationsPanel';
-import SocialPanel from './components/SocialPanel';
-import Sidebar from './components/Sidebar';
-import { ThemeProvider, useTheme } from './contexts/ThemeContext';
-import { t } from './i18n/translations';
+import { 
+  AccessibilitySettings, 
+  MediaControls,
+  useKeyboardNavigation,
+  applyAccessibilitySettings 
+} from './modules/ui-control';
 
 // 後端 API 的網址
 const API_URL = 'http://127.0.0.1:8000';
@@ -21,73 +18,34 @@ function AppContent() {
   const [error, setError] = useState('');
   const [audioSrc, setAudioSrc] = useState('');
   const [ttsLoading, setTtsLoading] = useState(false);
-  const [profileOpen, setProfileOpen] = useState(false);
-  const [progressOpen, setProgressOpen] = useState(false);
-  const [favoritesOpen, setFavoritesOpen] = useState(false);
-  const [loginOpen, setLoginOpen] = useState(false);
-  const [notificationsOpen, setNotificationsOpen] = useState(false);
-  const [socialOpen, setSocialOpen] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [userProfile, setUserProfile] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null);
-  const [language, setLanguage] = useState('zh-tw');
-  const [notifications, setNotifications] = useState([]);
-  const [unreadCount, setUnreadCount] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isScanning, setIsScanning] = useState(false);
 
-  // Load user from localStorage on mount
-  useEffect(() => {
-    const savedUser = localStorage.getItem('currentUser');
-    if (savedUser) {
-      try {
-        setCurrentUser(JSON.parse(savedUser));
-      } catch (e) {
-        localStorage.removeItem('currentUser');
+  // 處理無障礙設定變更
+  const handleAccessibilityChange = (settings) => {
+    applyAccessibilitySettings(settings);
+  };
+
+  // 鍵盤導航支援
+  useKeyboardNavigation({
+    onPlay: () => {
+      if (!loading && !ttsLoading) {
+        handleTTS();
       }
-    }
-  }, []);
-
-  // Fetch notifications when user is logged in
-  const fetchNotifications = useCallback(async () => {
-    if (!currentUser?.user_id) return;
-    try {
-      const response = await fetch(`${API_URL}/notifications/${currentUser.user_id}`);
-      if (response.ok) {
-        const data = await response.json();
-        setNotifications(data.notifications || []);
-        setUnreadCount(data.notifications?.filter(n => !n.read).length || 0);
+    },
+    onPause: () => {
+      setIsPlaying(false);
+    },
+    onStop: () => {
+      setIsPlaying(false);
+      setIsScanning(false);
+    },
+    onScan: () => {
+      if (!loading && !ttsLoading) {
+        handleSubmit(new Event('submit'));
       }
-    } catch (err) {
-      console.error('Failed to fetch notifications:', err);
-    }
-  }, [currentUser?.user_id]);
-
-  useEffect(() => {
-    fetchNotifications();
-    // Poll for new notifications every 30 seconds
-    const interval = setInterval(fetchNotifications, 30000);
-    return () => clearInterval(interval);
-  }, [fetchNotifications]);
-
-  const handleLogin = (userData) => {
-    setCurrentUser(userData);
-    localStorage.setItem('currentUser', JSON.stringify(userData));
-    fetchNotifications();
-  };
-
-  const handleLogout = () => {
-    setCurrentUser(null);
-    localStorage.removeItem('currentUser');
-    setNotifications([]);
-    setUnreadCount(0);
-  };
-
-  const handleProfileChange = (profile) => {
-    setUserProfile(profile);
-    // Update language when profile changes
-    if (profile?.preferences?.preferred_language) {
-      setLanguage(profile.preferences.preferred_language);
-    }
-  };
+    },
+  }, true);
 
   const handleTTS = async () => {
     if (!text.trim()) {
@@ -95,6 +53,7 @@ function AppContent() {
       return;
     }
     setTtsLoading(true);
+    setIsPlaying(true);
     setError('');
     setAudioSrc('');
 
@@ -114,20 +73,42 @@ function AppContent() {
         setAudioSrc(url);
     } catch (err) {
         setError(err.message);
+        setIsPlaying(false);
     } finally {
         setTtsLoading(false);
+    }
+  };
+
+  const handlePause = () => {
+    setIsPlaying(false);
+    const audio = document.querySelector('audio');
+    if (audio) {
+      audio.pause();
+    }
+  };
+
+  const handleStop = () => {
+    setIsPlaying(false);
+    setIsScanning(false);
+    setAudioSrc('');
+    const audio = document.querySelector('audio');
+    if (audio) {
+      audio.pause();
+      audio.currentTime = 0;
     }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
+    setIsScanning(true);
     setError('');
     setResult(null);
 
     if (!text.trim()) {
       setError(t(language, 'placeholder'));
       setLoading(false);
+      setIsScanning(false);
       return;
     }
 
@@ -156,6 +137,7 @@ function AppContent() {
       setError(err.message);
     } finally {
       setLoading(false);
+      setIsScanning(false);
     }
   };
 
@@ -198,180 +180,86 @@ function AppContent() {
   };
 
   return (
-    <div className={`App ${themeName}`} data-theme={themeName}>
-      {/* Sidebar Navigation */}
-      <Sidebar
-        isOpen={sidebarOpen}
-        onClose={() => setSidebarOpen(false)}
-        onNavigate={(section) => {
-          setSidebarOpen(false);
-          switch (section) {
-            case 'history': setProgressOpen(true); break;
-            case 'favorites': setFavoritesOpen(true); break;
-            case 'settings': setProfileOpen(true); break;
-            case 'social': setSocialOpen(true); break;
-            case 'notifications': setNotificationsOpen(true); break;
-            case 'login': setLoginOpen(true); break;
-            case 'logout': handleLogout(); break;
-            default: break;
-          }
-        }}
-        currentUser={currentUser}
-        language={language}
-      />
+    <div className="App">
+      <a href="#main-content" className="skip-link">
+        跳至主要內容
+      </a>
 
-      <header className="App-header">
-        <div className="header-left">
-          <button 
-            className="menu-button" 
-            onClick={() => setSidebarOpen(true)}
-            aria-label={t(language, 'menu')}
-          >
-            ☰
-          </button>
-        </div>
+      <AccessibilitySettings onSettingsChange={handleAccessibilityChange} />
 
-        <div className="header-center">
-          <h1>{t(language, 'appTitle')}</h1>
-          <p>{t(language, 'appSubtitle')}</p>
-        </div>
-
-        <div className="header-buttons">
-          {/* Theme Toggle */}
-          <button 
-            className="header-button theme-toggle" 
-            onClick={toggleTheme}
-            aria-label={t(language, 'theme')}
-            title={`${t(language, 'theme')}: ${themeName}`}
-          >
-            {themeName === 'dark' ? '🌙' : themeName === 'light' ? '☀️' : '🔄'}
-          </button>
-
-          {/* Notifications */}
-          <button 
-            className="header-button notification-button" 
-            onClick={() => setNotificationsOpen(true)}
-            aria-label={t(language, 'notifications')}
-          >
-            🔔
-            {unreadCount > 0 && (
-              <span className="notification-badge">{unreadCount}</span>
-            )}
-          </button>
-
-          {/* Quick Actions */}
-          <button 
-            className="header-button" 
-            onClick={() => setProgressOpen(true)}
-            aria-label={t(language, 'readingHistory')}
-          >
-            📊
-          </button>
-          <button 
-            className="header-button" 
-            onClick={() => setFavoritesOpen(true)}
-            aria-label={t(language, 'favorites')}
-          >
-            ❤️
-          </button>
-          <button 
-            className="header-button" 
-            onClick={() => setSocialOpen(true)}
-            aria-label={t(language, 'social')}
-          >
-            💬
-          </button>
-
-          {/* User/Login Button */}
-          {currentUser ? (
-            <button 
-              className="profile-button user-logged-in" 
-              onClick={() => setProfileOpen(true)}
-              aria-label={t(language, 'settings')}
-            >
-              👤 {currentUser.username || t(language, 'settings')}
-            </button>
-          ) : (
-            <button 
-              className="profile-button login-button" 
-              onClick={() => setLoginOpen(true)}
-              aria-label={t(language, 'login')}
-            >
-              🔐 {t(language, 'login')}
-            </button>
-          )}
-        </div>
+      <header className="App-header" role="banner">
+        <h1>Project-HOLO</h1>
+        <p>多模態敘事沉浸體驗生成器</p>
       </header>
 
-      <main>
-        <form onSubmit={handleSubmit} className="narrative-form">
+      <main id="main-content" role="main">
+        <form onSubmit={handleSubmit} className="narrative-form" aria-label="敘事輸入表單">
+          <label htmlFor="narrative-input" className="sr-only">
+            輸入您的故事或情境
+          </label>
           <textarea
+            id="narrative-input"
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder={t(language, 'placeholder')}
             rows="5"
             disabled={loading}
+            aria-required="true"
+            aria-invalid={error ? 'true' : 'false'}
+            aria-describedby={error ? 'error-message' : undefined}
           />
-          <div className="form-buttons">
-            <button type="submit" className="primary-button" disabled={loading}>
-              {loading ? t(language, 'generating') : t(language, 'generate')}
-            </button>
-            <button type="button" className="secondary-button" onClick={handleTTS} disabled={ttsLoading}>
-              {ttsLoading ? t(language, 'generatingAudio') : t(language, 'playAudio')}
-            </button>
-          </div>
         </form>
 
-        {error && <p className="error-message">{error}</p>}
+        <MediaControls
+          onScan={handleSubmit}
+          onPlay={handleTTS}
+          onPause={handlePause}
+          onStop={handleStop}
+          isPlaying={isPlaying}
+          isScanning={isScanning}
+          disabled={loading || ttsLoading}
+        />
+
+        {error && (
+          <div 
+            id="error-message"
+            className="error-message" 
+            role="alert"
+            aria-live="assertive"
+          >
+            {error}
+          </div>
+        )}
 
         {audioSrc && (
-          <div className="audio-player">
-            <h3>{t(language, 'audioOutput')}</h3>
-            <audio controls autoPlay src={audioSrc}>
-              {t(language, 'browserNotSupported')}
+          <div className="audio-player" role="region" aria-label="語音播放器">
+            <h3>語音輸出</h3>
+            <audio 
+              controls 
+              autoPlay 
+              src={audioSrc}
+              aria-label="生成的語音音訊"
+              onEnded={() => setIsPlaying(false)}
+            >
+              您的瀏覽器不支援音訊播放。
             </audio>
           </div>
         )}
 
         {result && (
-          <div className="result-container">
-            <div className="result-header">
-              <h2>{t(language, 'results')}</h2>
-              <div className="result-actions">
-                <button 
-                  className="action-button" 
-                  onClick={handleAddToFavorites}
-                  disabled={!currentUser}
-                  title={currentUser ? t(language, 'addToFavorites') : t(language, 'loginRequired')}
-                >
-                  ❤️ {t(language, 'addToFavorites')}
-                </button>
-                <button 
-                  className="action-button" 
-                  onClick={() => setSocialOpen(true)}
-                >
-                  📤 {t(language, 'share')}
-                </button>
-                <button 
-                  className="action-button" 
-                  onClick={saveReadingSession}
-                  disabled={!currentUser}
-                >
-                  💾 {t(language, 'saveProgress')}
-                </button>
-              </div>
+          <div className="result-container" role="region" aria-label="生成結果">
+            <h2>生成結果</h2>
+            <div className="result-section">
+              <h3>聽覺輸出</h3>
+              <pre aria-label="聽覺輸出資料">{JSON.stringify(result.auditory_output, null, 2)}</pre>
             </div>
             <div className="result-section">
-              <h3>{t(language, 'auditoryOutput')}</h3>
-              <pre>{JSON.stringify(result.auditory_output, null, 2)}</pre>
+              <h3>感官輸出</h3>
+              <pre aria-label="感官輸出資料">{JSON.stringify(result.sensory_output, null, 2)}</pre>
             </div>
             <div className="result-section">
-              <h3>{t(language, 'sensoryOutput')}</h3>
-              <pre>{JSON.stringify(result.sensory_output, null, 2)}</pre>
-            </div>
-            <div className="result-section">
-              <h3>{t(language, 'knowledgeGraph')}</h3>
-              <pre>{JSON.stringify(result.knowledge_graph, null, 2)}</pre>
+              <h3>知識圖譜</h3>
+              <pre aria-label="知識圖譜資料">{JSON.stringify(result.knowledge_graph, null, 2)}</pre>
             </div>
           </div>
         )}
