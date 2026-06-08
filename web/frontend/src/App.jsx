@@ -18,34 +18,12 @@ function AppContent() {
   const [error, setError] = useState('');
   const [audioSrc, setAudioSrc] = useState('');
   const [ttsLoading, setTtsLoading] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isScanning, setIsScanning] = useState(false);
-
-  // 處理無障礙設定變更
-  const handleAccessibilityChange = (settings) => {
-    applyAccessibilitySettings(settings);
-  };
-
-  // 鍵盤導航支援
-  useKeyboardNavigation({
-    onPlay: () => {
-      if (!loading && !ttsLoading) {
-        handleTTS();
-      }
-    },
-    onPause: () => {
-      setIsPlaying(false);
-    },
-    onStop: () => {
-      setIsPlaying(false);
-      setIsScanning(false);
-    },
-    onScan: () => {
-      if (!loading && !ttsLoading) {
-        handleSubmit(new Event('submit'));
-      }
-    },
-  }, true);
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState('');
+  const [imageAnalysis, setImageAnalysis] = useState(null);
+  const [imageLoading, setImageLoading] = useState(false);
+  const [generatedContent, setGeneratedContent] = useState(null);
+  const [contentLoading, setContentLoading] = useState(false);
 
   const handleTTS = async () => {
     if (!text.trim()) {
@@ -79,22 +57,84 @@ function AppContent() {
     }
   };
 
-  const handlePause = () => {
-    setIsPlaying(false);
-    const audio = document.querySelector('audio');
-    if (audio) {
-      audio.pause();
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
-  const handleStop = () => {
-    setIsPlaying(false);
-    setIsScanning(false);
-    setAudioSrc('');
-    const audio = document.querySelector('audio');
-    if (audio) {
-      audio.pause();
-      audio.currentTime = 0;
+  const handleImageAnalysis = async () => {
+    if (!imageFile) {
+      setError('請先上傳圖片');
+      return;
+    }
+
+    setImageLoading(true);
+    setError('');
+    setImageAnalysis(null);
+
+    try {
+      const formData = new FormData();
+      formData.append('file', imageFile);
+
+      const response = await fetch(`${API_URL}/analyze_image?use_ocr=true&use_vision=true`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`圖片分析失敗，狀態碼: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setImageAnalysis(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setImageLoading(false);
+    }
+  };
+
+  const handleGenerateContent = async (contentType) => {
+    if (!text.trim()) {
+      setError('請輸入文字內容');
+      return;
+    }
+
+    setContentLoading(true);
+    setError('');
+    setGeneratedContent(null);
+
+    try {
+      const response = await fetch(`${API_URL}/generate_content`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: text,
+          content_type: contentType,
+          style: 'narrative',
+          duration_minutes: 5
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`內容生成失敗，狀態碼: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setGeneratedContent(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setContentLoading(false);
     }
   };
 
@@ -189,26 +229,79 @@ function AppContent() {
 
       <header className="App-header" role="banner">
         <h1>Project-HOLO</h1>
-        <p>多模態敘事沉浸體驗生成器</p>
+        <p>多模態敘事沉浸體驗生成器 - 整合影像識別與生成式 AI</p>
       </header>
+      <main>
+        <div className="feature-section">
+          <h2>📷 影像識別與情緒分析</h2>
+          <div className="image-upload-section">
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              disabled={imageLoading}
+            />
+            <button onClick={handleImageAnalysis} disabled={imageLoading || !imageFile}>
+              {imageLoading ? '分析中...' : '分析圖片'}
+            </button>
+          </div>
+          
+          {imagePreview && (
+            <div className="image-preview">
+              <img src={imagePreview} alt="預覽" style={{ maxWidth: '400px', maxHeight: '300px' }} />
+            </div>
+          )}
 
-      <main id="main-content" role="main">
-        <form onSubmit={handleSubmit} className="narrative-form" aria-label="敘事輸入表單">
-          <label htmlFor="narrative-input" className="sr-only">
-            輸入您的故事或情境
-          </label>
-          <textarea
-            id="narrative-input"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder={t(language, 'placeholder')}
-            rows="5"
-            disabled={loading}
-            aria-required="true"
-            aria-invalid={error ? 'true' : 'false'}
-            aria-describedby={error ? 'error-message' : undefined}
-          />
-        </form>
+          {imageAnalysis && (
+            <div className="result-container">
+              <h3>圖片分析結果</h3>
+              {imageAnalysis.vision_analysis && (
+                <div className="result-section">
+                  <h4>情緒檢測</h4>
+                  <pre>{JSON.stringify(imageAnalysis.vision_analysis.emotions, null, 2)}</pre>
+                  <h4>標籤識別</h4>
+                  <pre>{JSON.stringify(imageAnalysis.vision_analysis.labels, null, 2)}</pre>
+                </div>
+              )}
+              {imageAnalysis.ocr_result && (
+                <div className="result-section">
+                  <h4>文字提取 (OCR)</h4>
+                  <p><strong>完整文字：</strong>{imageAnalysis.ocr_result.full_text}</p>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        <div className="feature-section">
+          <h2>🤖 生成式 AI 內容</h2>
+          <form onSubmit={handleSubmit} className="narrative-form">
+            <textarea
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              placeholder="在這裡輸入您的故事或情境..."
+              rows="5"
+              disabled={loading}
+            />
+            <div className="button-group">
+              <button type="submit" disabled={loading}>
+                {loading ? '生成中...' : '生成沉浸式體驗'}
+              </button>
+              <button type="button" onClick={handleTTS} disabled={ttsLoading}>
+                {ttsLoading ? '語音生成中...' : '播放語音 (TTS)'}
+              </button>
+              <button type="button" onClick={() => handleGenerateContent('summary')} disabled={contentLoading}>
+                生成摘要
+              </button>
+              <button type="button" onClick={() => handleGenerateContent('podcast')} disabled={contentLoading}>
+                生成播客腳本
+              </button>
+              <button type="button" onClick={() => handleGenerateContent('analysis')} disabled={contentLoading}>
+                文本分析
+              </button>
+            </div>
+          </form>
+        </div>
 
         <MediaControls
           onScan={handleSubmit}
@@ -246,9 +339,20 @@ function AppContent() {
           </div>
         )}
 
+        {generatedContent && (
+          <div className="result-container">
+            <h2>生成內容</h2>
+            <div className="result-section">
+              {generatedContent.content && <p>{generatedContent.content}</p>}
+              {generatedContent.script && <pre>{generatedContent.script}</pre>}
+              {generatedContent.emoticon && <p style={{ fontSize: '2em' }}>{generatedContent.emoticon}</p>}
+            </div>
+          </div>
+        )}
+
         {result && (
-          <div className="result-container" role="region" aria-label="生成結果">
-            <h2>生成結果</h2>
+          <div className="result-container">
+            <h2>沉浸式體驗結果</h2>
             <div className="result-section">
               <h3>聽覺輸出</h3>
               <pre aria-label="聽覺輸出資料">{JSON.stringify(result.auditory_output, null, 2)}</pre>
