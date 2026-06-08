@@ -1,4 +1,4 @@
-# AI-Reader (Archived) — Project H.O.L.O.
+# AI-Reader— Project H.O.L.O.
 
 [![Python](https://img.shields.io/badge/Python-3.12+-%233776AB?logo=python)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115-%23009688?logo=fastapi)](https://fastapi.tiangolo.com/)
