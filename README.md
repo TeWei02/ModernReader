@@ -1,75 +1,71 @@
-# AI-Reader— Project H.O.L.O.
+# A Neuro-Semantic Framework for Multi-Modal Narrative Immersion 
 
-[![Python](https://img.shields.io/badge/Python-3.12+-%233776AB?logo=python)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-%23009688?logo=fastapi)](https://fastapi.tiangolo.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![CI](https://github.com/TeWei02/AI-Reader/actions/workflows/ci.yml/badge.svg)](https://github.com/TeWei02/AI-Reader/actions/workflows/ci.yml)
+## 專案願景 
+故事的核心在於體驗，而非僅是文字。數百年來，我們透過視覺解碼符號來理解故事，但文字本身僅是通往故事世界的媒介。
 
-> **Archived** — This repository has been merged into [ModernReader](https://github.com/TeWei02/ModernReader).
-> All code now lives under the `holo/` subdirectory of ModernReader.
-> Please visit [ModernReader](https://github.com/TeWei02/ModernReader) for the latest updates.
+Project H.O.L.O. 的使命，就是打破這個媒介的限制，提出一個大膽的問題：如果我們不僅能"閱讀"故事，而是能真正地"感受"它呢？ 
 
-## Original Description
+## 專案目標 
+- 重新定義"閱讀"的體驗，讓讀者不僅僅是解讀文字，而是全方位感受故事中的情感與情境，成為故事的一部分。 
 
-**AI-Reader / Project H.O.L.O.** — An AI framework that deconstructs text through deep semantic analysis, then reconstructs narrative through generative AI to engage the full spectrum of human perception (visual, auditory, and beyond).
+## 核心技術 
+1. **深度語意分析**：
+   - 使用自然語言處理 (NLP) 技術，將文本解構為語意單元。
+   - 分析情感、語調、角色關係與故事背景。
 
-故事的核心在於體驗，而非僅是文字。數百年來，我們透過視覺解碼符號來理解故事，但文字本身僅是通往故事世界的媒介。Project H.O.L.O. 的使命，就是打破這個限制。
+2. **生成式 AI**：
+   - 基於語意單元創建動態的聽覺體驗（例如角色對話、環境音效）。
+   - 使用文本到聲音 (Text-to-Sound) 與文本到氣味 (Text-to-Scent) 的生成技術，模擬多感官回饋。
 
-## Features
+3. **多模態感知系統**：
+   - 整合聽覺、觸覺與嗅覺回饋，打造沉浸式的敘事體驗。
+   - 開發 API 供硬體設備（如觸覺反饋裝置）使用。
 
-- **Multi-Sensory Narrative** — Auditory, visual, and textual modality analysis
-- **Semantic Ingestion** — Intelligent content parsing and structuring
-- **Quantum Analysis** — Quantum-inspired semantic similarity computation
-- **Social Reading** — Collaborative annotations and shared bookmarks
-- **Cross-Platform** — Web frontend (Vite + Capacitor) + Python backend (FastAPI)
+## 預期成果 
+- 一個沉浸式敘事框架，能夠將任何文本轉化為多感官體驗。
+- 支援多語言，應用於教育、娛樂與療癒場景。 
 
-## Tech Stack
+## MultisensoryReader-Orchestrator
 
-| Component | Technology |
-|-----------|------------|
-| Backend | Python 3.12+, FastAPI |
-| Frontend | Vite, Capacitor (iOS/Android) |
-| Container | Docker, Docker Compose |
-| TTS | ElevenLabs API |
-| Database | SQLite / PostgreSQL |
+我們已經實作了 MultisensoryReader-Orchestrator，這是一個協調文本處理、情感檢測、語音合成和觸覺/嗅覺設備控制的系統。
 
-## Project Structure
+### 主要功能
 
-```
-AI-Reader/
-├── holo/                  # H.O.L.O. core engine
-│   ├── ingestion/         # Content ingestion pipeline
-│   ├── sensory/           # Multi-sensory modality modules
-│   ├── auditory/          # Audio/TTS processing
-│   ├── lang/              # Language processing
-│   ├── quantum/           # Quantum semantic analysis
-│   ├── database/          # Data persistence layer
-│   └── auth/              # Authentication
-├── web/
-│   ├── backend/           # FastAPI backend
-│   └── frontend/          # Vite + Capacitor frontend
-├── app/mobile/            # Mobile app config
-├── tests/                 # Test suite
-├── docker/                # Docker configs
-└── README.md
-```
+- **ReaderAgent**: 文本攝取、分段處理和重點提取
+- **EmotionAgent**: 從文本或語音樣本預測情感，並映射到 TTS 語音預設
+- **DeviceAgent**: 將重點和情感事件映射到觸覺和嗅覺模式
+- **MemoryAgent**: 用戶偏好和 RAG 搜索
+- **Orchestrator**: 協調所有代理並實現主要工作流程
 
-## Quick Start
+### API 端點
 
+- `POST /orchestrator/play` - 開始播放文本並生成多感官體驗
+- `POST /orchestrator/pause` - 暫停當前播放
+- `POST /orchestrator/seek` - 跳轉到特定段落
+- `GET /orchestrator/summary` - 獲取當前會話摘要
+
+### 快速開始
+
+1. 安裝依賴：
 ```bash
-# Backend
-pip install -r web/backend/requirements.txt
-python web/backend/main.py
-
-# Frontend
-cd web/frontend
-npm install
-npm run dev
-
-# Docker
-docker compose up
+cd web/backend
+pip install -r requirements.txt
 ```
 
-## License
+2. 啟動後端服務：
+```bash
+uvicorn main:app --reload
+```
 
-MIT — Copyright (c) 2026 TeWei02 (kedewei)
+3. 訪問 API 文檔：
+http://localhost:8000/docs
+
+4. 運行示例：
+```bash
+python examples/orchestrator_demo.py
+```
+
+詳細文檔請參考 [holo/orchestrator/README.md](holo/orchestrator/README.md)
+
+## 版權與貢獻 
+歡迎對此專案感興趣的開發者提供意見並提交 PR.
