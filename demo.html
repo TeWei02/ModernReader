@@ -346,8 +346,8 @@
       <div class="pg-card">
         <h4>1. my-reader-gpt</h4>
         <span class="badge b-blue">聲音核心測試版</span>
-        <p style="font-size:.85rem;margin-bottom:10px">專注於長篇文本高品質語音生成，解決韻律一致性問題。</p>
-        <div style="font-size:.8rem;font-weight:600;color:#2a3a42;margin-bottom:4px">語音自然度 (MOS) 評分</div>
+        <p style="font-size:.85rem;margin-bottom:10px">專注於長篇文本高品質語音生成，正解決韻律一致性問題。</p>
+        <div style="font-size:.8rem;font-weight:600;color:#2a3a42;margin-bottom:4px">語音自然度 (MOS) 目標</div>
         <div class="chart-box"><canvas id="mosChart"></canvas></div>
       </div>
       <div class="pg-card">
@@ -568,7 +568,7 @@ function initMos() {
     type: 'bar',
     data: {
       labels: ['my-reader-gpt 語音自然度'],
-      datasets: [{ label: 'MOS', data: [4.3],
+      datasets: [{ label: 'MOS 目標（待實測）', data: [4.3],
         backgroundColor: ['rgba(38,139,210,.55)'],
         borderColor:     ['rgba(38,139,210,1)'],
         borderWidth: 1, barPercentage: .45 }]
@@ -578,7 +578,7 @@ function initMos() {
       scales: { x: { beginAtZero:true, max:5, title:{ display:true, text:'分數（最高 5.0）' } } },
       plugins: {
         legend: { display:false },
-        tooltip: { callbacks: { label: c => `MOS: ${c.parsed.x.toFixed(1)} / 5.0` } }
+        tooltip: { callbacks: { label: c => `目標: ${c.parsed.x.toFixed(1)} / 5.0（待實測）` } }
       }
     }
   });
