@@ -15,10 +15,10 @@
 - Docker / docker-compose 容器化部署
 - 完整 CI/CD 流程與文件
 
-## 線上演示
+## 線上版本
 
+- [ModernReader 正式版（PWA）](https://tewei02.github.io/ModernReader/) — 多感官智能閱讀器，支援 EPUB/TXT/MD 導入、語音導讀、情緒標記與 AI 摘要，可安裝為桌面／手機 App 並離線使用
 - [互動專案報告](https://tewei02.github.io/ModernReader/) — 願景、HSP 引擎架構與開發進度總覽
-- [H.O.L.O. × ModernReader Demo](https://tewei02.github.io/ModernReader/demo.html) — 情緒狀態偵測與多感官路由的互動示範
 
 ## 快速開始
 

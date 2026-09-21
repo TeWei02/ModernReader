@@ -1,0 +1,16 @@
+{
+  "name": "ModernReader — 多感官智能閱讀器",
+  "short_name": "ModernReader",
+  "description": "Project H.O.L.O.：以 Cognitive Rhythm Alignment 為核心的多感官閱讀器，支援 EPUB/TXT/MD 導入、語音導讀、情緒標記與 AI 摘要。",
+  "start_url": "/ModernReader/",
+  "scope": "/ModernReader/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0a0d14",
+  "theme_color": "#0d1a2e",
+  "lang": "zh-TW",
+  "icons": [
+    { "src": "/ModernReader/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/ModernReader/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
