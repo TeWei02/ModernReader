@@ -450,6 +450,5 @@ All Week 1 Sprint objectives have been successfully completed. The implementatio
 ---
 
 **Implementation Date**: October 12, 2025
-**Developer**: GitHub Copilot
+**Developer**: Te-Wei Ko
 **Repository**: STUST-KOTEWEI/AI-Reader
-**Branch**: copilot/implement-week-1-sprint-features
