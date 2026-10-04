@@ -8,6 +8,7 @@ import { clsx } from 'clsx'
 import { useEffect, useState } from 'react'
 
 type Section = 'reading' | 'data' | 'ai' | 'about'
+type AccessibilityMode = 'standard' | 'kids' | 'senior'
 
 const SECTIONS: { id: Section; label: string; icon: string }[] = [
     { id: 'reading', label: 'Reading', icon: '📖' },
@@ -34,6 +35,8 @@ export default function SettingsPage() {
     const updateSettings = useReaderStore((s) => s.updateSettings)
     const addToast = useUIStore((s) => s.addToast)
     const openConfirm = useUIStore((s) => s.openConfirm)
+    const accessibilityMode = useUIStore((s) => s.accessibilityMode)
+    const setAccessibilityMode = useUIStore((s) => s.setAccessibilityMode)
 
     const [section, setSection] = useState<Section>('reading')
     const [apiKey, setApiKey] = useState('')
@@ -127,7 +130,13 @@ export default function SettingsPage() {
             {/* Content */}
             <div className="flex-1 px-6 py-6 overflow-y-auto">
                 {section === 'reading' && (
-                    <ReadingSection settings={settings} onUpdate={updateSettings} onReset={handleResetSettings} />
+                    <ReadingSection
+                        settings={settings}
+                        onUpdate={updateSettings}
+                        onReset={handleResetSettings}
+                        accessibilityMode={accessibilityMode}
+                        onChangeAccessibilityMode={setAccessibilityMode}
+                    />
                 )}
                 {section === 'data' && (
                     <DataSection exporting={exporting} onExport={handleExportData} onClear={handleClearData} />
@@ -168,14 +177,50 @@ function SettingRow({ label, children }: { label: string; children: React.ReactN
     )
 }
 
-function ReadingSection({ settings, onUpdate, onReset }: {
+function ReadingSection({ settings, onUpdate, onReset, accessibilityMode, onChangeAccessibilityMode }: {
     settings: ReaderSettings
     onUpdate: (s: Partial<ReaderSettings>) => void
     onReset: () => void
+    accessibilityMode: AccessibilityMode
+    onChangeAccessibilityMode: (m: AccessibilityMode) => void
 }) {
+    const applyPreset = (mode: AccessibilityMode) => {
+        onChangeAccessibilityMode(mode)
+        if (mode === 'kids') {
+            onUpdate({ fontSize: 22, lineHeight: 2.0, theme: 'light' })
+        } else if (mode === 'senior') {
+            onUpdate({ fontSize: 24, lineHeight: 2.05, theme: 'high-contrast' })
+        }
+    }
+
     return (
         <div>
             <SectionHeader title="Reading Preferences" description="These defaults apply to all books." />
+
+            <div className="mb-4 rounded-xl border border-[var(--border)] bg-[var(--bg-secondary)] p-4">
+                <p className="text-sm font-medium text-[var(--text-heading)] mb-2">Accessibility Preset</p>
+                <p className="text-xs text-[var(--text-secondary)] mb-3">For children and seniors: larger text, bigger controls, and easier reading.</p>
+                <div className="flex flex-wrap gap-2">
+                    {([
+                        { id: 'standard', label: 'Standard' },
+                        { id: 'kids', label: 'Kids Friendly' },
+                        { id: 'senior', label: 'Senior Friendly' },
+                    ] as const).map((m) => (
+                        <button
+                            key={m.id}
+                            onClick={() => applyPreset(m.id)}
+                            className={clsx(
+                                'rounded-lg border px-3 py-2 text-xs font-medium transition-colors',
+                                accessibilityMode === m.id
+                                    ? 'border-accent-500 bg-accent-600/10 text-accent-700 dark:text-accent-400'
+                                    : 'border-[var(--border)] text-[var(--text-secondary)] hover:bg-[var(--hover-bg)]'
+                            )}
+                        >
+                            {m.label}
+                        </button>
+                    ))}
+                </div>
+            </div>
 
             {/* Theme */}
             <div className="mb-4">

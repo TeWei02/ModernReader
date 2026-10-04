@@ -5,6 +5,8 @@
 /* ── CSS Theme Variables ── */
 :root {
     --accent: #6366f1;
+    --ui-scale: 1;
+    --tap-size: 36px;
 
     /* Light theme */
     --bg: #fafaf9;
@@ -105,6 +107,28 @@ body {
     font-family: var(--reader-font-family, serif);
     -webkit-font-smoothing: antialiased;
     transition: background 0.25s, color 0.25s;
+    font-size: calc(16px * var(--ui-scale));
+}
+
+button,
+input,
+select,
+textarea {
+    min-height: var(--tap-size);
+}
+
+[data-accessibility-mode="kids"] {
+    --ui-scale: 1.12;
+    --tap-size: 48px;
+    --reader-font-size: 22px;
+    --reader-line-height: 2;
+}
+
+[data-accessibility-mode="senior"] {
+    --ui-scale: 1.18;
+    --tap-size: 52px;
+    --reader-font-size: 24px;
+    --reader-line-height: 2.05;
 }
 
 ::selection {

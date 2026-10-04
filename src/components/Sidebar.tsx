@@ -1,5 +1,6 @@
 import { useLibraryStore } from '@/store/libraryStore'
 import { useUIStore } from '@/store/uiStore'
+import type { ReaderSummarySidebarState } from '@/types/reader'
 import { clsx } from 'clsx'
 import { NavLink, useNavigate } from 'react-router-dom'
 
@@ -47,9 +48,86 @@ const NAV_ITEMS: NavItem[] = [
             </svg>
         ),
     },
+    {
+        to: '/agents',
+        label: 'Agents',
+        icon: () => (
+            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M9.75 3a3.75 3.75 0 00-3.75 3.75v.75H5.25A2.25 2.25 0 003 9.75v9A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75v-9a2.25 2.25 0 00-2.25-2.25H18v-.75A3.75 3.75 0 0014.25 3h-4.5zM7.5 7.5v-.75A2.25 2.25 0 019.75 4.5h4.5a2.25 2.25 0 012.25 2.25v.75H7.5zM12 11.25a1.5 1.5 0 011.5 1.5v1.5a1.5 1.5 0 11-3 0v-1.5a1.5 1.5 0 011.5-1.5z" />
+            </svg>
+        ),
+    },
 ]
 
-export function Sidebar() {
+interface SidebarProps {
+    mode?: 'navigation' | 'reader-summary'
+    readerSummaryState?: ReaderSummarySidebarState
+}
+
+export function Sidebar({ mode = 'navigation', readerSummaryState }: SidebarProps) {
+    if (mode === 'reader-summary') {
+        return (
+            <aside className="w-80 shrink-0 border-l border-[var(--border)] bg-[var(--sidebar-bg)] overflow-y-auto">
+                <div className="px-4 py-3 border-b border-[var(--border)]">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)]">
+                        Selection Summary
+                    </p>
+                    <p className="mt-1 text-xs text-[var(--text-secondary)]">
+                        Select text in the reader, then summarize.
+                    </p>
+                </div>
+
+                <div className="px-4 py-3 space-y-3">
+                    {readerSummaryState?.selectedText ? (
+                        <>
+                            <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-secondary)] p-3">
+                                <p className="text-xs font-semibold text-[var(--text-secondary)] mb-1">Selected Text</p>
+                                <p className="text-sm text-[var(--text-primary)] leading-relaxed whitespace-pre-wrap">
+                                    {readerSummaryState.selectedText}
+                                </p>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                                <button
+                                    onClick={readerSummaryState.onSummarize}
+                                    disabled={readerSummaryState.isLoading}
+                                    className="rounded-lg bg-accent-600 text-white px-3 py-1.5 text-sm font-medium hover:bg-accent-700 disabled:opacity-60 transition-colors"
+                                >
+                                    {readerSummaryState.isLoading ? 'Summarizing...' : 'Summarize Selection'}
+                                </button>
+                                <button
+                                    onClick={readerSummaryState.onClearSelection}
+                                    className="rounded-lg border border-[var(--border)] px-3 py-1.5 text-sm text-[var(--text-secondary)] hover:bg-[var(--hover-bg)] transition-colors"
+                                >
+                                    Clear
+                                </button>
+                            </div>
+                        </>
+                    ) : (
+                        <p className="rounded-lg border border-dashed border-[var(--border)] px-3 py-6 text-center text-sm text-[var(--text-secondary)]">
+                            No text selected yet.
+                        </p>
+                    )}
+
+                    {readerSummaryState?.error && (
+                        <p className="rounded-lg border border-rose-300/40 bg-rose-500/10 px-3 py-2 text-xs text-rose-400">
+                            {readerSummaryState.error}
+                        </p>
+                    )}
+
+                    {readerSummaryState?.summary && (
+                        <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-secondary)] p-3">
+                            <p className="text-xs font-semibold text-[var(--text-secondary)] mb-1">Mock Summary</p>
+                            <p className="text-sm text-[var(--text-primary)] leading-relaxed whitespace-pre-wrap">
+                                {readerSummaryState.summary}
+                            </p>
+                        </div>
+                    )}
+                </div>
+            </aside>
+        )
+    }
+
     const collapsed = useUIStore((s) => s.sidebarCollapsed)
     const toggleSidebar = useUIStore((s) => s.toggleSidebar)
     const openImportModal = useUIStore((s) => s.openImportModal)

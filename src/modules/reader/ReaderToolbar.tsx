@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom'
 
 interface ReaderToolbarProps {
     book: Book
+    isSpeaking: boolean
+    onToggleSpeak: () => void
 }
 
 interface ToolbarButton {
@@ -14,7 +16,7 @@ interface ToolbarButton {
     onClick: () => void
 }
 
-export function ReaderToolbar({ book }: ReaderToolbarProps) {
+export function ReaderToolbar({ book, isSpeaking, onToggleSpeak }: ReaderToolbarProps) {
     const navigate = useNavigate()
     const tocVisible = useReaderStore((s) => s.tocVisible)
     const searchVisible = useReaderStore((s) => s.searchVisible)
@@ -90,6 +92,19 @@ export function ReaderToolbar({ book }: ReaderToolbarProps) {
             icon: (
                 <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h10m-10 6h16" />
+                </svg>
+            ),
+        },
+        {
+            label: isSpeaking ? 'Stop Reading Aloud' : 'Read Aloud',
+            active: isSpeaking,
+            onClick: onToggleSpeak,
+            icon: (
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    {isSpeaking
+                        ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 6l12 12M6 18L18 6" />
+                        : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5L6 9H3v6h3l5 4V5zM15 9a5 5 0 010 6" />
+                    }
                 </svg>
             ),
         },

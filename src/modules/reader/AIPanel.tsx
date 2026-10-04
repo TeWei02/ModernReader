@@ -49,8 +49,11 @@ export function AIPanel({ book }: AIPanelProps) {
         setLoading(true)
         try {
             const context = book.content?.slice(0, 8000) ?? ''
-            const result = await aiService.ask(context, q)
-            setMessages((m) => [...m, { role: 'assistant', content: result.answer + (result.references.length ? `\n\n*References: ${result.references.join(', ')}*` : '') }])
+            const result = await aiService.ask(q, context)
+            const referencesText = result.references.length
+                ? `\n\nReferences: ${result.references.map((r) => r.text).join(', ')}`
+                : ''
+            setMessages((m) => [...m, { role: 'assistant', content: `${result.answer}${referencesText}` }])
         } catch {
             setMessages((m) => [...m, { role: 'assistant', content: '(Error: could not get response)' }])
         } finally {
@@ -107,8 +110,8 @@ export function AIPanel({ book }: AIPanelProps) {
                 {messages.map((msg, i) => (
                     <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                         <div className={`max-w-[85%] rounded-xl px-3 py-2 text-xs leading-relaxed ${msg.role === 'user'
-                                ? 'bg-accent-600 text-white'
-                                : 'bg-[var(--bg-secondary)] text-[var(--text-primary)] border border-[var(--border)]'
+                            ? 'bg-accent-600 text-white'
+                            : 'bg-[var(--bg-secondary)] text-[var(--text-primary)] border border-[var(--border)]'
                             }`}>
                             {msg.content}
                         </div>
