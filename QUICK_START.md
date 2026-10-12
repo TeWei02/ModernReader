@@ -129,8 +129,8 @@ Emotion Model Conversion Test
 
 如需更詳細的資訊，請參考：
 
-1. **[README_EMOTION_MODEL.md](README_EMOTION_MODEL.md)** - 完整功能說明
-2. **[EMOTION_ANALYSIS_INTEGRATION.md](EMOTION_ANALYSIS_INTEGRATION.md)** - 詳細整合步驟
+1. **[README_EMOTION_MODEL.md](docs/README_EMOTION_MODEL.md)** - 完整功能說明
+2. **[EMOTION_ANALYSIS_INTEGRATION.md](docs/EMOTION_ANALYSIS_INTEGRATION.md)** - 詳細整合步驟
 3. **[ARCHITECTURE.md](ARCHITECTURE.md)** - 系統架構圖
 4. **[examples/emotion_analysis_example.swift](examples/emotion_analysis_example.swift)** - UIKit & SwiftUI 範例
 
@@ -230,8 +230,8 @@ struct ContentView: View {
 
 如遇到問題：
 
-1. 查看 [EMOTION_ANALYSIS_INTEGRATION.md](EMOTION_ANALYSIS_INTEGRATION.md) 中的疑難排解章節
-2. 檢查 [IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md) 了解完整實作細節
+1. 查看 [EMOTION_ANALYSIS_INTEGRATION.md](docs/EMOTION_ANALYSIS_INTEGRATION.md) 中的疑難排解章節
+2. 檢查 [IMPLEMENTATION_SUMMARY.md](docs/IMPLEMENTATION_SUMMARY.md) 了解完整實作細節
 3. 參考 [examples/](examples/) 目錄中的範例程式碼
 
 ## 🎉 完成！

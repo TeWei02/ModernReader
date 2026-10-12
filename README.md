@@ -52,6 +52,7 @@ cd ModernReader
 | [IMPLEMENTATION.md](IMPLEMENTATION.md) | 實作細節 |
 | [CHANGELOG.md](CHANGELOG.md) | 版本紀錄 |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | 貢獻指引 |
+| [docs/](docs/) | 技術文件索引：產品願景、情緒分析、發行流程與開發紀錄 |
 
 ## 目錄結構
 
