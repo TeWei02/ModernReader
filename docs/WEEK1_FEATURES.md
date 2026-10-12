@@ -138,7 +138,7 @@ All core modules include comprehensive test coverage:
 
 ```bash
 # Run all backend tests
-cd /home/runner/work/AI-Reader/AI-Reader
+cd /home/runner/work/ModernReader/ModernReader
 python -m pytest tests/ -v
 
 # Test specific modules

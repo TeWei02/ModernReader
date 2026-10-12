@@ -7,7 +7,7 @@
 ### 文件結構
 
 ```
-AI-Reader/
+ModernReader/
 ├── convert_emotion_model.py              # Python 模型轉換腳本
 ├── test_emotion_conversion.py            # 測試腳本
 ├── EMOTION_ANALYSIS_INTEGRATION.md       # 詳細整合文檔
@@ -219,7 +219,7 @@ private let maxSequenceLength = 256  // 預設是 128
 
 ## 授權
 
-本專案遵循 AI-Reader 的授權條款。
+本專案遵循 ModernReader 的授權條款。
 
 ## 貢獻
 

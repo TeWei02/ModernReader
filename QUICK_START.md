@@ -16,7 +16,7 @@
 
 ```bash
 # 進入專案目錄
-cd AI-Reader
+cd ModernReader
 
 # 安裝依賴
 pip install coremltools
@@ -249,4 +249,4 @@ struct ContentView: View {
 
 **版本：** 1.0.0  
 **最後更新：** 2025-10-12  
-**專案：** AI-Reader CoreML Integration
+**專案：** ModernReader CoreML Integration

@@ -49,8 +49,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Documentation
 - Comprehensive README with usage instructions
 - Technical architecture documentation
-- Connection to AI-Reader (Project H.O.L.O.) backend
+- Connection to ModernReader (Project H.O.L.O.) backend
 - AI tool usage transparency statement
 
-[Unreleased]: https://github.com/STUST-KOTEWEI/ModernReader/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/STUST-KOTEWEI/ModernReader/releases/tag/v1.0.0
+[Unreleased]: https://github.com/TeWei02/ModernReader/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/TeWei02/ModernReader/releases/tag/v1.0.0

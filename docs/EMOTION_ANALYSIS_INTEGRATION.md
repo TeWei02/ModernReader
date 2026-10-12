@@ -1,6 +1,6 @@
 # CoreML 情緒分析整合指南
 
-本文檔說明如何將情緒分析模型整合到 AI-Reader 應用程式中。
+本文檔說明如何將情緒分析模型整合到 ModernReader 應用程式中。
 
 ## 概述
 
@@ -285,4 +285,4 @@ class TextAnalysisViewController: UIViewController {
 
 ## 授權
 
-本整合遵循 AI-Reader 專案的授權條款。
+本整合遵循 ModernReader 專案的授權條款。

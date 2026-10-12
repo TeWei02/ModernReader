@@ -221,7 +221,7 @@ config = {
 **Solution:** Ensure project root is in Python path:
 ```python
 import sys
-sys.path.insert(0, '/path/to/AI-Reader')
+sys.path.insert(0, '/path/to/ModernReader')
 ```
 
 ### Issue: Connector timeout

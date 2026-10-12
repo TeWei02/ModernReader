@@ -274,7 +274,7 @@ The orchestrator is configured through a dictionary that defines connectors:
 Run the test suite:
 
 ```bash
-cd /home/runner/work/AI-Reader/AI-Reader
+cd /home/runner/work/ModernReader/ModernReader
 python -m pytest holo/orchestrator/tests/
 ```
 

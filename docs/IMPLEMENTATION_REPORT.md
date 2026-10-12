@@ -342,7 +342,7 @@ Output: Audio file (audio/mpeg)
 ## File Structure
 
 ```
-AI-Reader/
+ModernReader/
 ├── holo/
 │   ├── ingestion/
 │   │   └── text_segmenter.py          ← NEW (175 lines)
@@ -451,4 +451,4 @@ All Week 1 Sprint objectives have been successfully completed. The implementatio
 
 **Implementation Date**: October 12, 2025
 **Developer**: Te-Wei Ko
-**Repository**: STUST-KOTEWEI/AI-Reader
+**Repository**: TeWei02/ModernReader

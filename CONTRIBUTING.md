@@ -57,8 +57,8 @@
 
 5. **等待自動發布**
    - GitHub Actions 會自動建立 Release
-   - 檢查 [Actions](https://github.com/STUST-KOTEWEI/ModernReader/actions) 頁面確認狀態
-   - Release 會出現在 [Releases](https://github.com/STUST-KOTEWEI/ModernReader/releases) 頁面
+   - 檢查 [Actions](https://github.com/TeWei02/ModernReader/actions) 頁面確認狀態
+   - Release 會出現在 [Releases](https://github.com/TeWei02/ModernReader/releases) 頁面
 
 ### 版本號規則 (Semantic Versioning)
 

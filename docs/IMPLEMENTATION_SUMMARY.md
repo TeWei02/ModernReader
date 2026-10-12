@@ -2,7 +2,7 @@
 
 ## 專案概述
 
-本次實作完成了將 CoreML 情緒分析模型整合到 AI-Reader 應用程式的完整解決方案，包括：
+本次實作完成了將 CoreML 情緒分析模型整合到 ModernReader 應用程式的完整解決方案，包括：
 1. Python 模型轉換工具
 2. iOS Swift 服務實作
 3. 完整文檔和使用範例
@@ -258,7 +258,7 @@ TestEmotionLSTM.mlpackage
 ## 檔案清單
 
 ```
-AI-Reader/
+ModernReader/
 ├── convert_emotion_model.py              # Python 模型轉換腳本 (6.4KB)
 ├── test_emotion_conversion.py            # 轉換測試腳本 (5.3KB)
 ├── EMOTION_ANALYSIS_INTEGRATION.md       # 詳細整合文檔 (7.2KB)
@@ -356,10 +356,10 @@ AI-Reader/
 ✅ **可擴展**：模組化設計，易於自訂  
 ✅ **生產就緒**：完整的錯誤處理和測試支援  
 
-開發者可以直接使用這個解決方案來整合情緒分析功能到 AI-Reader 應用程式中，或者根據需求進行自訂和擴展。
+開發者可以直接使用這個解決方案來整合情緒分析功能到 ModernReader 應用程式中，或者根據需求進行自訂和擴展。
 
 ---
 
-**作者：** AI-Reader Team  
+**作者：** ModernReader Team  
 **日期：** 2025-10-12  
 **版本：** 1.0.0
