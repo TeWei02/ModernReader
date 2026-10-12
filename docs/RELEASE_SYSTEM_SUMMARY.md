@@ -131,10 +131,10 @@ git push origin v1.0.0
 
 ## 🔗 重要連結
 
-- **Releases 頁面**: https://github.com/STUST-KOTEWEI/ModernReader/releases
-- **Actions 頁面**: https://github.com/STUST-KOTEWEI/ModernReader/actions
-- **測試文檔**: [docs/TESTING_RELEASES.md](docs/TESTING_RELEASES.md)
-- **貢獻指南**: [CONTRIBUTING.md](CONTRIBUTING.md)
+- **Releases 頁面**: https://github.com/TeWei02/ModernReader/releases
+- **Actions 頁面**: https://github.com/TeWei02/ModernReader/actions
+- **測試文檔**: [TESTING_RELEASES.md](TESTING_RELEASES.md)
+- **貢獻指南**: [CONTRIBUTING.md](../CONTRIBUTING.md)
 
 ## 🎉 後續步驟
 
