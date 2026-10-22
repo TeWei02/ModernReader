@@ -9,3 +9,12 @@ flake8
 # 測試框架
 pytest
 pytest-cov
+
+# holo 套件執行期依賴（測試收集 import 需要）
+numpy
+httpx
+
+# Backend health test 依賴
+fastapi
+# FastAPI Form 資料依賴
+python-multipart

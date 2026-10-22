@@ -83,6 +83,8 @@ jobs:
   security-scan:
     runs-on: ubuntu-latest
     name: Security Scan
+    permissions:
+      security-events: write
     
     steps:
       - uses: actions/checkout@v4

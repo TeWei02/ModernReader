@@ -1,21 +1,41 @@
 import { render, screen } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import App from '../App';
 
 describe('App', () => {
-  it('應該要能渲染標題', () => {
-    render(<App />);
-    
-    // 使用 screen.getByRole 來尋找 heading 元素
-    const headingElement = screen.getByRole('heading', { name: /AI多感官智能閱讀器/i, level: 1 });
-    
-    // 斷言元素存在於文件中
-    expect(headingElement).toBeInTheDocument();
+  beforeEach(() => {
+    localStorage.clear();
   });
 
-  it('應該要顯示文字輸入區', () => {
+  it('應該渲染 ModernReader 品牌與預設書籍標題', () => {
     render(<App />);
-    const textareaElement = screen.getByPlaceholderText(/在這裡輸入您的故事或情境/);
-    expect(textareaElement).toBeInTheDocument();
+    expect(screen.getByText('ModernReader')).toBeInTheDocument();
+    const heading = screen.getByRole('heading', { level: 1 });
+    expect(heading).toHaveTextContent('示範文章');
+  });
+
+  it('應該提供書籍匯入按鈕', () => {
+    render(<App />);
+    expect(screen.getByText(/匯入書籍/)).toBeInTheDocument();
+  });
+
+  it('應該提供語音導讀、摘要與 Podcast 控制', () => {
+    render(<App />);
+    expect(screen.getByText(/語音導讀/)).toBeInTheDocument();
+    expect(screen.getByText(/生成摘要/)).toBeInTheDocument();
+    expect(screen.getByText(/Podcast MP3/)).toBeInTheDocument();
+  });
+
+  it('應該提供書籍問答的文字輸入框', () => {
+    render(<App />);
+    expect(screen.getByPlaceholderText(/問問這本書/)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /詢問 ModernReader/ })).toBeInTheDocument();
+  });
+
+  it('應該顯示情緒標記按鈕', () => {
+    render(<App />);
+    ['啟發', '平靜', '困惑', '緊張'].forEach((label) => {
+      expect(screen.getByText(label)).toBeInTheDocument();
+    });
   });
 });
