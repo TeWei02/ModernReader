@@ -633,14 +633,34 @@ function initMos() {
   if (!btn || !('speechSynthesis' in window)) return;
   var text = '故事的核心在於體驗，而不只是文字。ModernReader 重新定義閱讀，讓知識與情感，都能被溫柔地感受。';
   var speaking = false;
+  var voice = null;
+
+  function pickVoice () {
+    var voices = window.speechSynthesis.getVoices();
+    if (!voices || !voices.length) return null;
+    var zh = voices.filter(function (v) { return /^zh/i.test(v.lang || ''); });
+    if (!zh.length) return null;
+    var natural = zh.filter(function (v) { return /natural|neural|premium|enhanced/i.test(v.name); });
+    var pool = natural.length ? natural : zh;
+    var tw = pool.filter(function (v) { return /^zh[-_]TW/i.test(v.lang); });
+    var cn = pool.filter(function (v) { return /^zh[-_]CN/i.test(v.lang); });
+    return tw[0] || cn[0] || pool[0] || null;
+  }
+  function refreshVoice () { voice = pickVoice(); }
+  refreshVoice();
+  window.speechSynthesis.onvoiceschanged = refreshVoice;
+
   function stop () {
     if (window.speechSynthesis.speaking) window.speechSynthesis.cancel();
     speaking = false; btn.textContent = '🔊 語音試聽'; btn.classList.remove('on');
   }
   btn.addEventListener('click', function () {
     if (speaking) { stop(); return; }
+    if (!voice) voice = pickVoice();
     var u = new SpeechSynthesisUtterance(text);
-    u.lang = 'zh-TW'; u.rate = 1; u.pitch = 1; u.volume = 1;
+    u.rate = 1; u.pitch = 1; u.volume = 1;
+    if (voice) { u.voice = voice; u.lang = voice.lang; }
+    else { u.lang = 'zh-TW'; }
     u.onend = stop; u.onerror = stop;
     window.speechSynthesis.cancel();
     window.speechSynthesis.speak(u);
