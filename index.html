@@ -50,6 +50,29 @@
             color: #268bd2;
             font-weight: 700;
         }
+
+        .holo-cover-art { display:block; margin: 0 auto 18px; width: 230px; max-width: 74%; height: auto; }
+        .holo-cover-art .book { transform-origin: 50% 82%; animation: holo-breathe 4.5s ease-in-out infinite; }
+        .holo-cover-art .ring { transform-origin: 50% 50%; animation: holo-pulse 4s ease-in-out infinite; }
+        .holo-cover-art .wave { stroke-dasharray: 340; stroke-dashoffset: 340; animation: holo-draw 3.2s ease-out infinite alternate; }
+        .holo-cover-art .wave2 { stroke-dasharray: 340; stroke-dashoffset: 340; animation: holo-draw 3.2s ease-out .4s infinite alternate; }
+        .holo-cover-art .star { animation: holo-twinkle 3.6s ease-in-out infinite; }
+        .holo-cover-art .star.s2 { animation-delay: .9s; }
+        .holo-cover-art .star.s3 { animation-delay: 1.8s; }
+        @keyframes holo-breathe { 0%,100% { transform: scale(1) translateY(0); } 50% { transform: scale(1.045) translateY(-5px); } }
+        @keyframes holo-draw { 0% { stroke-dashoffset: 340; opacity: .3; } 100% { stroke-dashoffset: 0; opacity: 1; } }
+        @keyframes holo-twinkle { 0%,100% { opacity: .25; transform: scale(.85); } 50% { opacity: 1; transform: scale(1.15); } }
+        @keyframes holo-pulse { 0%,100% { opacity: .5; transform: scale(.96); } 50% { opacity: 1; transform: scale(1.04); } }
+        .speech-fab {
+            position: fixed; right: 18px; bottom: 24px; z-index: 100;
+            background: linear-gradient(135deg, #00c8d4, #268bd2); color: #fff;
+            border: 0; border-radius: 999px; padding: 10px 18px; font-size: .92rem;
+            font-family: inherit; cursor: pointer;
+            box-shadow: 0 6px 18px rgba(38,139,210,.35);
+            transition: transform .2s, box-shadow .2s, background .3s;
+        }
+        .speech-fab:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(38,139,210,.45); }
+        .speech-fab.on { background: linear-gradient(135deg, #ff5020, #cc00ff); animation: holo-pulse 1.6s ease-in-out infinite; }
     </style>
 </head>
 <body class="antialiased">
@@ -79,6 +102,18 @@
             <div class="container mx-auto px-6">
                 <h2 class="text-4xl md:text-6xl font-bold accent-text mb-4">Holo-Sentient 感知引擎</h2>
                 <p class="text-lg md:text-2xl text-gray-600 max-w-3xl mx-auto">讓知識與情感，在任何情境下都能被感知。我們正在打造一套超越視覺的AI閱讀器，開啟全新的人機互動篇章。</p>
+                <svg class="holo-cover-art" viewBox="0 0 240 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="H.O.L.O. 多感官閱讀插畫：書本、聲波與心電脈動">
+                    <circle class="ring" cx="120" cy="60" r="48" stroke="#00c8d4" stroke-opacity=".25" stroke-width="1"/>
+                    <circle class="ring" cx="120" cy="60" r="36" stroke="#00aaff" stroke-opacity=".3" stroke-width="1"/>
+                    <path class="book" d="M84 78 C 90 62, 108 55, 120 60 C 132 55, 150 62, 156 78 L156 96 C 150 90, 134 84, 120 88 C 106 84, 90 90, 84 96 Z" fill="#f5f1e8" stroke="#268bd2" stroke-width="1.6" stroke-linejoin="round"/>
+                    <path class="book" d="M120 60 L120 88" stroke="#268bd2" stroke-width="1.2"/>
+                    <path class="wave" d="M58 104 C 80 94, 100 112, 120 104 C 140 96, 160 112, 182 104" stroke="#859900" stroke-width="2.2" stroke-linecap="round"/>
+                    <path class="wave2" d="M58 113 C 80 103, 100 121, 120 113 C 140 105, 160 121, 182 113" stroke="#ff5020" stroke-width="1.6" stroke-linecap="round" stroke-opacity=".75"/>
+                    <circle class="star" cx="40" cy="28" r="2.6" fill="#00c8d4"/>
+                    <circle class="star s2" cx="198" cy="24" r="2.6" fill="#00aaff"/>
+                    <circle class="star s3" cx="214" cy="88" r="2.2" fill="#859900"/>
+                </svg>
+
             </div>
         </section>
 
@@ -327,6 +362,30 @@
                 }
             });
         });
+    </script>
+
+    <button id="speech-tab" class="speech-fab" type="button" aria-label="語音試聽">🔊 語音試聽</button>
+    <script>
+        (function () {
+            var btn = document.getElementById('speech-tab');
+            if (!btn || !('speechSynthesis' in window)) return;
+            var text = '故事的核心在於體驗，而不只是文字。ModernReader 重新定義閱讀，讓知識與情感，都能被溫柔地感受。';
+            var speaking = false;
+            function stop () {
+                if (window.speechSynthesis.speaking) window.speechSynthesis.cancel();
+                speaking = false; btn.textContent = '🔊 語音試聽'; btn.classList.remove('on');
+            }
+            btn.addEventListener('click', function () {
+                if (speaking) { stop(); return; }
+                var u = new SpeechSynthesisUtterance(text);
+                u.lang = 'zh-TW'; u.rate = 1; u.pitch = 1; u.volume = 1;
+                u.onend = stop; u.onerror = stop;
+                window.speechSynthesis.cancel();
+                window.speechSynthesis.speak(u);
+                speaking = true; btn.textContent = '⏹ 停止試聽'; btn.classList.add('on');
+            });
+            window.addEventListener('beforeunload', stop);
+        })();
     </script>
 </body>
 </html>
