@@ -1,118 +1,115 @@
-<div align="center">
+# 📖 ModernReader
 
-# ModernReader
+> **Read with Rhythm. Feel the Words.**
+> Turn long-form reading into a multi-sensory, rhythm-driven experience — comprehension, pacing, and emotion, aligned.
 
-**Project H.O.L.O. — 故事的多感官重建引擎**
-
-[![線上使用](https://img.shields.io/badge/線上使用-tewei02.github.io%2FModernReader-6ea8fe?style=flat-square&logo=githubpages&logoColor=white)](https://tewei02.github.io/ModernReader/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/)
-[![PWA](https://img.shields.io/badge/PWA-可離線安裝-5A0FC8?style=flat-square&logo=pwa&logoColor=white)](https://tewei02.github.io/ModernReader/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
-
-> 「故事的核心在於體驗，而非僅是文字。」
-
-</div>
-
-ModernReader 是 **Project H.O.L.O.** 的參考實作。它不把閱讀視為「解碼文字」，而視為一條可被運算的體驗管道：以深度語意分析解構文本，再透過多模態語意建模重塑為聽覺與感官回饋。
+[![Demo](https://img.shields.io/badge/Live%20Demo-Online-38BDF8?style=flat-square)](https://tewei02.github.io/ModernReader/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker&logoColor=white)](https://github.com/TeWei02/ModernReader/blob/main/Dockerfile)
+[![PWA](https://img.shields.io/badge/PWA-Yes-5A0FC8?style=flat-square&logo=pwa&logoColor=white)](https://github.com/TeWei02/ModernReader)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://github.com/TeWei02/ModernReader)
+[![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)](https://github.com/TeWei02/ModernReader)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://github.com/TeWei02/ModernReader/blob/main/LICENSE)
+[![Hackathon Finalist](https://img.shields.io/badge/2026%20Cross-Strait%20Entrepreneurship%20Competition-Finalist-22c55e?style=flat-square)](https://github.com/TeWei02/ModernReader)
 
 ---
 
-## 目錄
+## Why ModernReader?
 
-- [核心概念](#核心概念)
-- [線上版本](#線上版本)
-- [功能](#功能)
-- [快速開始](#快速開始)
-- [技術架構](#技術架構)
-- [文件](#文件)
-- [授權](#授權)
+Reading long text is exhausting. Your eyes fatigue, your mind wanders, and plain TTS sounds like a robot reading a manual.
+
+**ModernReader** is a multi-sensory AI reading system built on the **CRA model (Comprehension-Rhythm-Affect)** — it synchronizes what you *see*, what you *hear*, and what you *feel* into a breathing, rhythm-aware reading flow. Built for deep readers, students, and anyone with attention or visual fatigue who deserves a calmer way to read.
+
+🏆 Finalist — 2026 Cross-Strait (Straits) Entrepreneurship Competition
 
 ---
 
-## 核心概念
+## ✨ Features
 
-| 面向 | 說明 |
-| :--- | :--- |
-| **問題** | 敘事長期只能透過視覺解碼符號取得，讀者始終是旁觀者 |
-| **方法** | 語意解構 → 多模態建模 → 聽覺與感官重建 |
-| **模型** | Cognitive Rhythm Alignment (CRA)：即時追蹤閱讀行為、注意力與認知狀態，動態調適內容呈現方式 |
-| **狀態** | 概念驗證（PoC）· 2026 海峽兩岸創業大賽決賽入圍 |
-
----
-
-## 線上版本
-
-**<https://tewei02.github.io/ModernReader/>**
-
-多感官智能閱讀器，支援 EPUB / TXT / MD 匯入、語音導讀、情緒標記與 AI 摘要，可安裝為桌面／手機 App 並離線使用（PWA）。
+| Feature | What it does |
+|---|---|
+| 📥 Multi-format ingestion | Import **Markdown / EPUB / TXT**, parsed by a dedicated TypeScript core |
+| 🎙️ Rhythm-driven voice guide | **ElevenLabs TTS** integration + local **gTTS/ffmpeg** ambient podcast generation |
+| 💗 Emotion-aware reading | Emotion tagging & analysis over **joy / sadness / anger / fear / surprise / disgust** (EN & ZH), plus a **CoreML LSTM** pipeline accelerated by Apple Neural Engine (`EmotionLSTM.mlpackage`) |
+| 🧠 AI summary & generation | FastAPI endpoints `/analyze_image` & `/generate_content` — **Google Vision OCR + GPT-4**, with graceful degradation fallback |
+| 🎛️ Multi-sensory orchestration | **5 Agents** (Orchestrator / Reader / Emotion / Device / Memory) + **7 Connectors**, mapping emotions to TTS / haptics / ambient cues |
+| 📱 Everywhere | **PWA** web app + desktop demo + **Capacitor** mobile shell |
+| 🐳 Ship it | **Docker** + CI/CD workflow out of the box |
 
 ---
 
-## 功能
+## 🏗 Architecture — The CRA Model
 
-**內容管理**
+**C**omprehension · **R**hythm · **A**ffect — three layers working together:
 
-- 純文字 Markdown 為核心，跨平台相容
-- 分類資料夾（tech / biz / design 等）
-- 日期命名自動歸檔（`YYYYMMDD_` 前綴）
+```
+┌─────────────────────────────────────────────────────────┐
+│                    ModernReader Core                    │
+├──────────────┬─────────────┬──────────────────────────┤
+│ Comprehension│    Rhythm    │         Affect            │
+│  parsing /   │  pacing &    │  emotion analysis &       │
+│  structure   │  TTS timing  │  multi-sensory mapping    │
+└──────────────┴──────────────┴─────────────────────────┘
+        ▲                ▲                 ▲
+        └── Orchestrator ─┴─ 5 Agents ──┴── 7 Connectors ─┘
+                 emotion → TTS / haptics / ambient
+```
 
-**閱讀體驗**
+- **Comprehension** — content parsing, structure extraction, AI-assisted summarization
+- **Rhythm** — reading pacing control, rhythm-aware TTS, ambient audio mixing
+- **Affect** — keyword & LSTM-based emotion detection, mapped to sensory output
 
-- 語音導讀與情緒標記
-- AI 摘要
-- Cognitive Rhythm Alignment 動態調適
-
-**匯入與部署**
-
-- EPUB / TXT / MD 匯入
-- 核心解析器（`core/parser`）與執行環境（`core/runtime`）
-- 移動端應用（`app/mobile`）
-- Docker / docker-compose 容器化部署
-- 完整 CI/CD 流程
+Full design: [`ARCHITECTURE.md`](https://github.com/TeWei02/ModernReader/blob/main/ARCHITECTURE.md) · [`docs/PRODUCT_VISION.md`](https://github.com/TeWei02/ModernReader/blob/main/docs/PRODUCT_VISION.md)
 
 ---
 
-## 快速開始
+## 🚀 Quick Start
 
 ```bash
-git clone https://github.com/TeWei02/ModernReader.git
-cd ModernReader
+# Docker (recommended)
+docker compose up --build
+
+# Local development — see QUICK_START.md for full setup
 ```
 
-以支援 Markdown 的編輯器（VS Code、Typora 等）開啟即可閱讀；或參考 [QUICK_START.md](QUICK_START.md) 以容器化方式啟動。
+📖 Step-by-step: [`QUICK_START.md`](https://github.com/TeWei02/ModernReader/blob/main/QUICK_START.md)
 
 ---
 
-## 技術架構
+## 🧰 Tech Stack
 
-```
-ModernReader/
-├── core/           # 解析器與執行環境
-│   ├── parser/     # 內容解析
-│   └── runtime/    # 執行時環境
-├── app/mobile/     # 移動端應用
-├── web/frontend/   # 網頁前端（GitHub Pages 部署來源）
-├── docs/           # 技術文件
-├── Dockerfile
-├── docker-compose.yml
-└── demo.html       # 離線展示頁
-```
+Python · TypeScript · FastAPI · SQLite · CoreML · GPT-4 · Google Vision · ElevenLabs · gTTS · ffmpeg · PWA · Capacitor · Docker · GitHub Actions
+
+| Layer | Tech |
+|---|---|
+| Backend | Python · FastAPI · SQLite |
+| Frontend | TypeScript · PWA · Capacitor (mobile) |
+| AI/NLP | CoreML LSTM · GPT-4 · Google Vision OCR · affective computing |
+| Speech | ElevenLabs · gTTS · ffmpeg |
+| Ops | Docker · docker-compose · GitHub Actions |
 
 ---
 
-## 文件
+## 🗺 Roadmap
 
-| 文件 | 內容 |
-| :--- | :--- |
-| [ARCHITECTURE.md](ARCHITECTURE.md) | 系統架構 |
-| [IMPLEMENTATION.md](IMPLEMENTATION.md) | 實作細節 |
-| [CHANGELOG.md](CHANGELOG.md) | 版本紀錄 |
-| [CONTRIBUTING.md](CONTRIBUTING.md) | 貢獻指引 |
-| [docs/](docs/) | 技術文件索引：產品願景、情緒分析、發行流程與開發紀錄 |
+- [x] Multi-format ingestion & rhythm TTS
+- [x] Emotion tagging + CoreML emotion pipeline
+- [x] AI summary / content generation with fallback
+- [ ] Attention-focused UI modes (visual rhythm interface)
+- [ ] Deeper multi-sensory output (haptics / ambient devices)
+- [ ] Learning-assist AI companion
+
+*See [`CHANGELOG.md`](https://github.com/TeWei02/ModernReader/blob/main/CHANGELOG.md) for release history.*
 
 ---
 
-## 授權
+## 🤝 Contributing
 
-本專案採用 [MIT License](LICENSE)。
+Star it ⭐, open an issue 💬, or send a PR 🚀 — see [`CONTRIBUTING.md`](https://github.com/TeWei02/ModernReader/blob/main/CONTRIBUTING.md).
+
+**Docs:** [`ARCHITECTURE.md`](https://github.com/TeWei02/ModernReader/blob/main/ARCHITECTURE.md) · [`IMPLEMENTATION.md`](https://github.com/TeWei02/ModernReader/blob/main/IMPLEMENTATION.md) · [`QUICK_START.md`](https://github.com/TeWei02/ModernReader/blob/main/QUICK_START.md) · [`docs/`](https://github.com/TeWei02/ModernReader/tree/main/docs)
+
+---
+
+## 📄 License
+
+MIT © Te-Wei Ko (柯德瑋)
