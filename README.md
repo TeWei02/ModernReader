@@ -1,5 +1,7 @@
 # 📖 ModernReader
 
+**Language:** [![中文](https://img.shields.io/badge/中文-简体-0ea5e9?style=flat-square&logo=readme&logoColor=white)](README.md) [![English](https://img.shields.io/badge/English-English-f59e0b?style=flat-square&logo=readme&logoColor=white)](README.en.md)
+
 > **Read with Rhythm. Feel the Words.**
 > Turn long-form reading into a multi-sensory, rhythm-driven experience — comprehension, pacing, and emotion, aligned.
 
