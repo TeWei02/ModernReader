@@ -75,6 +75,15 @@ docker compose up --build
 
 📖 Step-by-step: [`QUICK_START.md`](https://github.com/TeWei02/ModernReader/blob/main/QUICK_START.md)
 
+### Prerequisites
+
+| 方式 | 需求 |
+|---|---|
+| Docker | Docker 20.10+（含 `docker compose`） |
+| 本地開發 | Node.js 20+、npm |
+
+啟動後預設位在 `http://localhost:3000`，可匯入 Markdown / EPUB / TXT 閱讀，並啟用語音朗讀、情緒標記與 AI 摘要。
+
 ---
 
 ## 🧰 Tech Stack
